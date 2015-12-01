@@ -2,6 +2,8 @@
 
 namespace Highideas\SqlToMigration\Queries;
 
+use Highideas\SqlToMigration\Queries\Columns\ColumnFactory;
+
 class CreateTable implements QueryInterface
 {
     protected $query;
@@ -54,7 +56,7 @@ class CreateTable implements QueryInterface
 
     public function getColumnInstance($column)
     {
-        return new Column($column);
+        return ColumnFactory::instantiate($column);
     }
 
     public function getTable()

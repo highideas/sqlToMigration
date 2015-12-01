@@ -1,8 +1,8 @@
 <?php
 
-namespace Highideas\SqlToMigration\Queries;
+namespace Highideas\SqlToMigration\Queries\Columns;
 
-class Column
+class AbstractColumn
 {
     protected $column;
     protected $type;
@@ -13,7 +13,7 @@ class Column
         $output_array = [];
         preg_match("/^([a-zA-Z-_]+)\s+([\w\W]+)/i", $column, $output_array);
         if (empty($output_array)) {
-            throw new InvalidQueryException($column, 'Invalid Column.');
+            throw new InvalidColumnException($column, 'Invalid Column.');
         }
         $this->column = $output_array[1];
         $this->type = $output_array[2];
