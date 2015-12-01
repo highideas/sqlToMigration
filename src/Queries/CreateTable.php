@@ -28,6 +28,9 @@ class CreateTable implements QueryInterface
             $this->query,
             $output_array
         );
+        if (empty($output_array)) {
+            throw new InvalidQueryException($query, 'Invalid Table.');
+        }
         $this->table = $output_array[2];
     }
 
@@ -41,7 +44,7 @@ class CreateTable implements QueryInterface
             $output_array
         );
         if (empty($output_array)) {
-            return;
+            throw new InvalidQueryException($query, 'Invalid Column.');
         }
         $columns = reset($output_array);
         foreach ($columns as $key => $column) {
