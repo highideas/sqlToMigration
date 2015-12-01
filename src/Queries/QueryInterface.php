@@ -4,8 +4,11 @@ namespace Highideas\SqlToMigration\Queries;
 
 interface QueryInterface
 {
-    protected function run();
     public function getTable();
+    public function getQuery();
     public function getColumns();
-    public function getQuery()
+
+    protected function run();
+    protected function defineTable();
+    protected function defineColumns();
 }
