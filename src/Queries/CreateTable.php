@@ -6,7 +6,7 @@ class CreateTable implements QueryInterface
 {
     protected $query;
     protected $table;
-    protected $colums = [];
+    protected $columns = [];
 
     public function __construct($query)
     {
@@ -43,7 +43,15 @@ class CreateTable implements QueryInterface
         if (empty($output_array)) {
             return;
         }
-        $this->colums = reset($output_array);
+        $columns = reset($output_array);
+        foreach ($columns as $key => $column) {
+            $this->columns[] = $this->getColumnInstance($column);
+        }
+    }
+
+    public function getColumnInstance($column)
+    {
+        return new Column($column);
     }
 
     public function getTable()
@@ -53,7 +61,7 @@ class CreateTable implements QueryInterface
 
     public function getColumns()
     {
-        return $this->colums;
+        return $this->columns;
     }
 
     public function getQuery()
