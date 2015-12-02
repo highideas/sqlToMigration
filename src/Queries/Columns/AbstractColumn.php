@@ -7,6 +7,12 @@ class AbstractColumn
     protected $column;
     protected $type;
     protected $raw;
+    protected $param = '';
+    protected $default = '';
+    protected $splitColumn = [];
+
+    abstract protected function setDefaul();
+    abstract protected function prepare();
 
     public function __construct($column)
     {
@@ -30,8 +36,23 @@ class AbstractColumn
         return $this->type;
     }
 
+    public function getParam()
+    {
+        return $this->param;
+    }
+
+    public function getDefault()
+    {
+        return $this->default;
+    }
+
     public function isNullable()
     {
         return strpos(strtolower($this->raw), 'not null') === false;
+    }
+
+    public function hasDefault()
+    {
+        return strpos(strtolower($this->raw), 'default') !== false;
     }
 }
