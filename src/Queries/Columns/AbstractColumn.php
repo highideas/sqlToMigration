@@ -2,7 +2,7 @@
 
 namespace Highideas\SqlToMigration\Queries\Columns;
 
-class AbstractColumn
+abstract class AbstractColumn
 {
     protected $column;
     protected $type;
@@ -11,7 +11,7 @@ class AbstractColumn
     protected $default = '';
     protected $splitColumn = [];
 
-    abstract protected function setDefaul();
+    abstract protected function setDefault();
     abstract protected function prepare();
 
     public function __construct($column)

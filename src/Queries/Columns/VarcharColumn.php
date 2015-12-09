@@ -2,6 +2,8 @@
 
 namespace Highideas\SqlToMigration\Queries\Columns;
 
+use Highideas\SqlToMigration\Exceptions\InvalidColumnException;
+
 class VarcharColumn extends AbstractColumn
 {
 
@@ -27,7 +29,7 @@ class VarcharColumn extends AbstractColumn
             $defaultParam = 1;
         }
         $this->param = empty($this->splitColumn[3]) ? $defaultParam : $this->splitColumn[3];
-        $this->raw = $column;
+        $this->raw = $this->column;
         if ($this->hasDefault()) {
             $this->setDefaul();
         }

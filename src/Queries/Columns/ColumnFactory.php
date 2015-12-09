@@ -12,6 +12,6 @@ class ColumnFactory
         if (strpos($preFormatedColumn, 'varying') !== false || strpos($preFormatedColumn, 'varchar')) {
             return new VarcharColumn($column);
         }
-        throw new InvalidColumnException($query, 'Column Not Found.');
+        throw new InvalidColumnException($column, 'Column Not Found.');
     }
 }
