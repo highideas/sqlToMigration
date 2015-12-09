@@ -1,0 +1,13 @@
+<phpunit bootstrap="./bootstrap.php"
+                colors="true"
+                convertErrorsToExceptions="true"
+                convertNoticesToExceptions="true"
+                convertWarningsToExceptions="true"
+                stopOnFailure="true"
+                stopOnError="true">
+    <testsuites>
+        <testsuite name="Testes unitários">
+            <directory>./unit</directory>
+        </testsuite>
+    </testsuites>
+</phpunit>
