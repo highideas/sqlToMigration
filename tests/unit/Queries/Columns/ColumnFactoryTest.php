@@ -18,7 +18,8 @@ class ColumnFactoryTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException Highideas\SqlToMigration\Exceptions\InvalidColumnException
+     * @expectedException        Highideas\SqlToMigration\Exceptions\InvalidColumnException
+     * @expectedExceptionMessage Column Not Found.
      */
     public function testInstantiateShouldReturnInvalidColumnExceptionWhenInvalidParamPassed()
     {

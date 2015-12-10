@@ -10,13 +10,13 @@ class VarcharColumn extends AbstractColumn
     public function __construct($column)
     {
         preg_match(
-            "/^([a-zA-Z-_]+)\s+(CHARACTER|CHAR|CHARACTER VARYING|VARCHAR|NATIONAL CHARACTER|NCHAR|NATIONAL CHARACTER VARYING|NVARCHAR)\(*(\d)*\)*\s*(NOT NULL|NULL|DEFAULT\s[\W][\w]+[\W])\s*(NOT NULL|NULL|DEFAULT\s[\W][\w]+[\W])*/i",
+            "/^([a-zA-Z-_]+)\s+(CHARACTER|CHAR|CHARACTER VARYING|VARCHAR|NATIONAL CHARACTER|NCHAR|NATIONAL CHARACTER VARYING|NVARCHAR)\s*\(*([\d]*)\)*\s*(NOT NULL|NULL|DEFAULT\s[\W][\w]+[\W])*\s*(NOT NULL|NULL|DEFAULT\s[\W][\w]+[\W])*/i",
             $column,
             $this->splitColumn
         );
-        if (empty($this->splitColumn)) {
+        if (empty($this->splitColumn))
             throw new InvalidColumnException($column, 'Invalid Column.');
-        }
+
         $this->prepare();
     }
 
