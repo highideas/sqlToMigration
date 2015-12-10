@@ -8,8 +8,4 @@ interface QueryInterface
     public function getQuery();
     public function getColumns();
     public function getColumnInstance($column);
-
-    protected function run();
-    protected function defineTable();
-    protected function defineColumns();
 }
