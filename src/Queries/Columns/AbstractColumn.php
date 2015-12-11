@@ -2,6 +2,8 @@
 
 namespace Highideas\SqlToMigration\Queries\Columns;
 
+use Highideas\SqlToMigration\Exceptions\InvalidColumnException;
+
 abstract class AbstractColumn
 {
     protected $column;

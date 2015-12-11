@@ -9,6 +9,7 @@ class VarcharColumn extends AbstractColumn
 
     public function __construct($column)
     {
+        parent::__construct($column);
         preg_match(
             "/^([a-zA-Z-_]+)\s+(CHARACTER|CHAR|CHARACTER VARYING|VARCHAR|NATIONAL CHARACTER|NCHAR|NATIONAL CHARACTER VARYING|NVARCHAR)\s*\(*([\d]*)\)*\s*(NOT NULL|NULL|DEFAULT\s[\W][\w]+[\W])*\s*(NOT NULL|NULL|DEFAULT\s[\W][\w]+[\W])*/i",
             $column,
@@ -29,9 +30,8 @@ class VarcharColumn extends AbstractColumn
             $defaultParam = 1;
         }
         $this->param = empty($this->splitColumn[3]) ? $defaultParam : $this->splitColumn[3];
-        $this->raw = $this->column;
         if ($this->hasDefault()) {
-            $this->setDefaul();
+            $this->setDefault();
         }
     }
 

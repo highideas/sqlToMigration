@@ -23,4 +23,16 @@ class VarcharColumnTest extends PHPUnit_Framework_TestCase
         $char = new VarcharColumn('gender char');
         $this->assertEquals(1, $char->getParam());
     }
+
+    public function testIsNullableShouldReturnTrueWhenNotInformed()
+    {
+        $char = new VarcharColumn('name varchar default "test"');
+        $this->assertTrue($char->isNullable());
+    }
+
+    public function testIsNullableShouldReturnFalseWhenColumnIsNotNull()
+    {
+        $char = new VarcharColumn('name varchar NOT null');
+        $this->assertFalse($char->isNullable());
+    }
 }
