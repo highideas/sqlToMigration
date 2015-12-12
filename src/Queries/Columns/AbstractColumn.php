@@ -11,21 +11,30 @@ abstract class AbstractColumn
     protected $raw;
     protected $param = '';
     protected $default = '';
-    protected $splitColumn = [];
+    protected $splitColumn = [
+        0 => 'unknown',
+        1 => 'unknown',
+        2 => 'undefined'
+    ];
 
     abstract protected function setDefault();
-    abstract protected function prepare();
+    abstract protected function match($column);
 
     public function __construct($column)
     {
-        $output_array = [];
-        preg_match("/^([a-zA-Z-_]+)\s+([\w\W]+)/i", $column, $output_array);
-        if (empty($output_array)) {
-            throw new InvalidColumnException($column, 'Invalid Column.');
-        }
-        $this->column = $output_array[1];
-        $this->type = $output_array[2];
         $this->raw = $column;
+        $this->match($column);
+        unset($this->splitColumn[0]);
+        $this->prepare();
+    }
+
+    protected function prepare()
+    {
+        $this->column = $this->splitColumn[1];
+        $this->type = $this->splitColumn[2];
+        if ($this->hasDefault()) {
+            $this->setDefault();
+        }
     }
 
     public function getColumn()
@@ -48,13 +57,26 @@ abstract class AbstractColumn
         return $this->default;
     }
 
+    public function getRaw()
+    {
+        return $this->raw;
+    }
+
     public function isNullable()
     {
-        return strpos(strtolower($this->raw), 'not null') === false;
+        return strpos(strtolower($this->getRaw()), 'not null') === false;
     }
 
     public function hasDefault()
     {
-        return strpos(strtolower($this->raw), 'default') !== false;
+        return strpos(strtolower($this->getRaw()), 'default') !== false;
+    }
+
+    protected function setInvalidColumnException($message)
+    {
+        throw new InvalidColumnException(
+            $this->getRaw(),
+            $message
+        );
     }
 }
