@@ -7,32 +7,25 @@ use Highideas\SqlToMigration\Exceptions\InvalidColumnException;
 class VarcharColumn extends AbstractColumn
 {
 
-    public function __construct($column)
+    protected function match($column)
     {
-        parent::__construct($column);
         preg_match(
             "/^([a-zA-Z-_]+)\s+(CHARACTER|CHAR|CHARACTER VARYING|VARCHAR|NATIONAL CHARACTER|NCHAR|NATIONAL CHARACTER VARYING|NVARCHAR)\s*\(*([\d]*)\)*\s*(NOT NULL|NULL|DEFAULT\s[\W][\w]+[\W])*\s*(NOT NULL|NULL|DEFAULT\s[\W][\w]+[\W])*/i",
             $column,
             $this->splitColumn
         );
         if (empty($this->splitColumn))
-            throw new InvalidColumnException($column, 'Invalid Column.');
-
-        $this->prepare();
+            $this->setInvalidColumnException('Invalid Column.');
     }
 
     protected function prepare()
     {
-        $this->column = $this->splitColumn[1];
-        $this->type = $this->splitColumn[2];
+        parent::prepare();
         $defaultParam = 256;
         if ($this->isCharacter()) {
             $defaultParam = 1;
         }
         $this->param = empty($this->splitColumn[3]) ? $defaultParam : $this->splitColumn[3];
-        if ($this->hasDefault()) {
-            $this->setDefault();
-        }
     }
 
     protected function isCharacter()
@@ -52,11 +45,7 @@ class VarcharColumn extends AbstractColumn
                 break;
             }
         }
-        if (empty($this->default)) {
-            throw new InvalidColumnException(
-                serialize($this->splitColumn),
-                'Invalid Defaul Value.'
-            );
-        }
+        if (empty($this->default))
+            $this->setInvalidColumnException('Invalid Default Value.');
     }
 }
