@@ -21,11 +21,11 @@ class VarcharColumn extends AbstractColumn
     protected function prepare()
     {
         parent::prepare();
-        $defaultParam = 256;
+        $defaultSize = 256;
         if ($this->isCharacter()) {
-            $defaultParam = 1;
+            $defaultSize = 1;
         }
-        $this->param = empty($this->splitColumn[3]) ? $defaultParam : $this->splitColumn[3];
+        $this->size = (int)(empty($this->splitColumn[3]) ? $defaultSize : $this->splitColumn[3]);
     }
 
     protected function isCharacter()

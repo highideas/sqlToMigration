@@ -37,9 +37,15 @@ class IntegerColumnTest extends PHPUnit_Framework_TestCase
         new IntegerColumn('year int default A');
     }
 
-    public function testGetColumnShouldReturnNameOfColumn()
+    public function testGetNameShouldReturnNameOfName()
     {
         $int = new IntegerColumn('year int default 2015');
-        $this->assertEquals('year', $int->getColumn());
+        $this->assertEquals('year', $int->getName());
+    }
+
+    public function testGetSizeShouldReturnSize()
+    {
+        $int = new IntegerColumn('`Lft` int(11) NOT NULL');
+        $this->assertEquals(11, $int->getSize());
     }
 }

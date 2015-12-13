@@ -10,12 +10,18 @@ class IntegerColumn extends AbstractColumn
     protected function match($column)
     {
         preg_match(
-            "/^([a-zA-Z-_]+)\s+(INTEGER|INT|SMALLINT)\s*(NOT NULL|NULL|DEFAULT\s+[\d]+)*\s*(NOT NULL|NULL|DEFAULT\s+[\d]+)*/i",
+            "/^[`]*([a-zA-Z-_]+)[`]*\s+(INTEGER|INT|SMALLINT)\s*\(*([\d]*)\)*\s+\s*(NOT NULL|NULL|DEFAULT\s+[\d]+)*\s*(NOT NULL|NULL|DEFAULT\s+[\d]+)*/i",
             $column,
             $this->splitColumn
         );
         if (empty($this->splitColumn))
             throw new InvalidColumnException($column, 'Invalid Column.');
+    }
+
+    protected function prepare()
+    {
+        parent::prepare();
+        $this->size = (int)(empty($this->splitColumn[3]) ? NULL : $this->splitColumn[3]);
     }
 
     protected function setDefault()

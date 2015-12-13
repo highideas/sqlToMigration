@@ -18,15 +18,15 @@ class VarcharColumnTest extends PHPUnit_Framework_TestCase
         new VarcharColumn('integer');
     }
 
-    public function testWhenCharTypeGetParamShouldReturnOne()
+    public function testWhenCharTypeGetSizeShouldReturnOne()
     {
         $char = new VarcharColumn('gender char');
-        $this->assertEquals(1, $char->getParam());
+        $this->assertEquals(1, $char->getSize());
     }
 
-    public function testGetColumnShouldReturnNameOfColumn()
+    public function testGetNameShouldReturnNameOfColumn()
     {
         $varchar = new VarcharColumn("name varchar default 'John Smith'");
-        $this->assertEquals('name', $varchar->getColumn());
+        $this->assertEquals('name', $varchar->getName());
     }
 }

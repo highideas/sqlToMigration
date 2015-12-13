@@ -6,10 +6,10 @@ use Highideas\SqlToMigration\Exceptions\InvalidColumnException;
 
 abstract class AbstractColumn
 {
-    protected $column;
+    protected $name;
     protected $type;
     protected $raw;
-    protected $param = '';
+    protected $size = '';
     protected $default = '';
     protected $splitColumn = [
         0 => 'unknown',
@@ -30,16 +30,16 @@ abstract class AbstractColumn
 
     protected function prepare()
     {
-        $this->column = $this->splitColumn[1];
+        $this->name = $this->splitColumn[1];
         $this->type = $this->splitColumn[2];
         if ($this->hasDefault()) {
             $this->setDefault();
         }
     }
 
-    public function getColumn()
+    public function getName()
     {
-        return $this->column;
+        return $this->name;
     }
 
     public function getType()
@@ -47,9 +47,9 @@ abstract class AbstractColumn
         return $this->type;
     }
 
-    public function getParam()
+    public function getSize()
     {
-        return $this->param;
+        return $this->size;
     }
 
     public function getDefault()
