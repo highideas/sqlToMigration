@@ -29,4 +29,16 @@ class VarcharColumnTest extends PHPUnit_Framework_TestCase
         $varchar = new VarcharColumn("name varchar default 'John Smith'");
         $this->assertEquals('name', $varchar->getName());
     }
+
+    public function testGetSizeShouldReturnSize()
+    {
+        $int = new VarcharColumn('`Title` char(64) NOT NULL');
+        $this->assertEquals(64, $int->getSize());
+    }
+
+    public function testGetTypeShouldReturnTypeOfColumn()
+    {
+        $int = new VarcharColumn('`Title` char(64) NOT NULL');
+        $this->assertEquals('char', $int->getType());
+    }
 }

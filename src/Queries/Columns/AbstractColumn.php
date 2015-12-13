@@ -10,6 +10,7 @@ abstract class AbstractColumn
     protected $type;
     protected $raw;
     protected $size = '';
+    protected $defaultSize = 0;
     protected $default = '';
     protected $splitColumn = [
         0 => 'unknown',
@@ -17,7 +18,7 @@ abstract class AbstractColumn
         2 => 'undefined'
     ];
 
-    abstract protected function setDefault();
+    abstract protected function defineDefault();
     abstract protected function match($column);
 
     public function __construct($column)
@@ -33,7 +34,7 @@ abstract class AbstractColumn
         $this->name = $this->splitColumn[1];
         $this->type = $this->splitColumn[2];
         if ($this->hasDefault()) {
-            $this->setDefault();
+            $this->defineDefault();
         }
     }
 
@@ -78,5 +79,10 @@ abstract class AbstractColumn
             $this->getRaw(),
             $message
         );
+    }
+
+    public function getDefaultSize()
+    {
+        return $this->defaultSize;
     }
 }

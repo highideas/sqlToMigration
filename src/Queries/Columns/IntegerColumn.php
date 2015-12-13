@@ -21,10 +21,16 @@ class IntegerColumn extends AbstractColumn
     protected function prepare()
     {
         parent::prepare();
-        $this->size = (int)(empty($this->splitColumn[3]) ? NULL : $this->splitColumn[3]);
+        $this->defineDefaultSize();
+        $this->size = (int)(empty($this->splitColumn[3]) ? $this->getDefaultSize() : $this->splitColumn[3]);
     }
 
-    protected function setDefault()
+    protected function defineDefaultSize()
+    {
+        $this->defaultSize = 11;
+    }
+
+    protected function defineDefault()
     {
         foreach ($this->splitColumn as $key => $value) {
             if (strpos(strtolower($value), 'default') !== false) {

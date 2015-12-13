@@ -48,4 +48,10 @@ class IntegerColumnTest extends PHPUnit_Framework_TestCase
         $int = new IntegerColumn('`Lft` int(11) NOT NULL');
         $this->assertEquals(11, $int->getSize());
     }
+
+    public function testGetTypeShouldReturnTypeOfColumn()
+    {
+        $int = new IntegerColumn('`Rght` int(11) NOT NULL');
+        $this->assertEquals('int', $int->getType());
+    }
 }

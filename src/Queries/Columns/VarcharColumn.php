@@ -10,7 +10,7 @@ class VarcharColumn extends AbstractColumn
     protected function match($column)
     {
         preg_match(
-            "/^([a-zA-Z-_]+)\s+(CHARACTER|CHAR|CHARACTER VARYING|VARCHAR|NATIONAL CHARACTER|NCHAR|NATIONAL CHARACTER VARYING|NVARCHAR)\s*\(*([\d]*)\)*\s*(NOT NULL|NULL|DEFAULT\s[\W][\w]+[\W])*\s*(NOT NULL|NULL|DEFAULT\s[\W][\w]+[\W])*/i",
+            "/^[`]*([a-zA-Z-_]+)[`]*\s+(CHARACTER|CHAR|CHARACTER VARYING|VARCHAR|NATIONAL CHARACTER|NCHAR|NATIONAL CHARACTER VARYING|NVARCHAR)\s*\(*([\d]*)\)*\s*(NOT NULL|NULL|DEFAULT\s[\W][\w]+[\W])*\s*(NOT NULL|NULL|DEFAULT\s[\W][\w]+[\W])*/i",
             $column,
             $this->splitColumn
         );
@@ -21,11 +21,16 @@ class VarcharColumn extends AbstractColumn
     protected function prepare()
     {
         parent::prepare();
-        $defaultSize = 256;
+        $this->defineDefaultSize();
+        $this->size = (int)(empty($this->splitColumn[3]) ? $this->getDefaultSize() : $this->splitColumn[3]);
+    }
+
+    protected function defineDefaultSize()
+    {
+        $this->defaultSize = 256;
         if ($this->isCharacter()) {
-            $defaultSize = 1;
+            $this->defaultSize = 1;
         }
-        $this->size = (int)(empty($this->splitColumn[3]) ? $defaultSize : $this->splitColumn[3]);
     }
 
     protected function isCharacter()
@@ -33,7 +38,7 @@ class VarcharColumn extends AbstractColumn
         return strpos(strtolower($this->type), 'var') === false;
     }
 
-    protected function setDefault()
+    protected function defineDefault()
     {
         foreach ($this->splitColumn as $key => $value) {
             if (strpos(strtolower($value), 'default') !== false) {
