@@ -9,9 +9,9 @@ abstract class AbstractColumn
     protected $name;
     protected $type;
     protected $raw;
-    protected $size = '';
+    protected $size = 0;
     protected $defaultSize = 0;
-    protected $default = '';
+    protected $default = null;
     protected $splitColumn = [
         0 => 'unknown',
         1 => 'unknown',
