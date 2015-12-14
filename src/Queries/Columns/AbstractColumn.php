@@ -68,6 +68,13 @@ abstract class AbstractColumn
         return strpos(strtolower($this->getRaw()), 'not null') === false;
     }
 
+    public function isAutoIncrement()
+    {
+        $auto_increment = strpos(strtolower($this->getRaw()), 'auto_increment') !== false;
+        $autoincrement = strpos(strtolower($this->getRaw()), 'autoincrement') !== false;
+        return $auto_increment || $autoincrement;
+    }
+
     public function hasDefault()
     {
         return strpos(strtolower($this->getRaw()), 'default') !== false;
