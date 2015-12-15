@@ -3,9 +3,12 @@
 namespace Highideas\SqlToMigration\Queries\Columns;
 
 use Highideas\SqlToMigration\Exceptions\InvalidColumnException;
+use Highideas\SqlToMigration\Queries\Indexes\Index;
 
-abstract class AbstractColumn
+abstract class AbstractColumn implements ColumnInterface
 {
+    use Index;
+
     protected $name;
     protected $type;
     protected $raw;
@@ -61,11 +64,6 @@ abstract class AbstractColumn
     public function getRaw()
     {
         return $this->raw;
-    }
-
-    public function isNullable()
-    {
-        return strpos(strtolower($this->getRaw()), 'not null') === false;
     }
 
     public function isAutoIncrement()
