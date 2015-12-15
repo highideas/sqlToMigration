@@ -10,9 +10,27 @@ class ColumnFactoryTest extends PHPUnit_Framework_TestCase
 {
     public function testInstantiateShouldReturnVarcharColumnObject()
     {
-        $class = ColumnFactory::instantiate('item_name character varying(64) NOT NULL');
+        $class = ColumnFactory::instantiate('`Title` varchar(128) NOT NULL');
         $this->assertInstanceOf(
             'Highideas\SqlToMigration\Queries\Columns\VarcharColumn',
+            $class
+        );
+    }
+
+    public function testInstantiateShouldReturnIntegerColumnObject()
+    {
+        $class = ColumnFactory::instantiate('`Rght` INTEGER NOT NULL');
+        $this->assertInstanceOf(
+            'Highideas\SqlToMigration\Queries\Columns\IntegerColumn',
+            $class
+        );
+    }
+
+    public function testInstantiateShouldReturnTextColumnObject()
+    {
+        $class = ColumnFactory::instantiate('`Description` text NOT NULL');
+        $this->assertInstanceOf(
+            'Highideas\SqlToMigration\Queries\Columns\TextColumn',
             $class
         );
     }
@@ -24,5 +42,14 @@ class ColumnFactoryTest extends PHPUnit_Framework_TestCase
     public function testInstantiateShouldReturnInvalidColumnExceptionWhenInvalidParamPassed()
     {
         ColumnFactory::instantiate('integer');
+    }
+
+    /**
+     * @expectedException        Highideas\SqlToMigration\Exceptions\InvalidColumnException
+     * @expectedExceptionMessage Column Not Found.
+     */
+    public function testInstantiateShouldReturnInvalidColumnExceptionWhenUnknownColumnInformed()
+    {
+        ColumnFactory::instantiate('`Active` boolean NOT NULL');
     }
 }

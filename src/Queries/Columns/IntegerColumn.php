@@ -10,7 +10,7 @@ class IntegerColumn extends AbstractColumn
     protected function match($column)
     {
         preg_match(
-            "/^[`]*([a-zA-Z-_]+)[`]*\s+(INTEGER|INT|SMALLINT)\s*\(*([\d]*)\)*\s+\s*(NOT NULL|NULL|DEFAULT\s+[\d]+)*\s*(NOT NULL|NULL|DEFAULT\s+[\d]+)*/i",
+            "/^[`]*([a-zA-Z-_]+)[`]*\s+(INTEGER|INT|SMALLINT|BIGINT)\s*\(*([\d]*)\)*\s+\s*(NOT NULL|NULL|DEFAULT\s+[\d]+)*\s*(NOT NULL|NULL|DEFAULT\s+[\d]+)*/i",
             $column,
             $this->splitColumn
         );
