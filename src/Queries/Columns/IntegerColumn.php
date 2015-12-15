@@ -14,6 +14,8 @@ class IntegerColumn extends AbstractColumn
             $column,
             $this->splitColumn
         );
+        $this->setDefaultRegex("/^default\s+(\d+)/i");
+
         if (empty($this->splitColumn))
             throw new InvalidColumnException($column, 'Invalid Column.');
     }
@@ -28,22 +30,5 @@ class IntegerColumn extends AbstractColumn
     protected function defineDefaultSize()
     {
         $this->defaultSize = 11;
-    }
-
-    protected function defineDefault()
-    {
-        foreach ($this->splitColumn as $key => $value) {
-            if (strpos(strtolower($value), 'default') !== false) {
-                $this->default = (int) preg_replace(
-                    "/^default\s+(\d+)/i",
-                    "$1",
-                    $value
-                );
-                break;
-            }
-        }
-
-        if (empty($this->default) || !is_int($this->default))
-            $this->setInvalidColumnException('Invalid Default Value.');
     }
 }

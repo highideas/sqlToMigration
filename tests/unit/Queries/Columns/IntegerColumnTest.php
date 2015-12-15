@@ -25,7 +25,7 @@ class IntegerColumnTest extends PHPUnit_Framework_TestCase
     public function testGetDefaultShouldReturnIntegerValue()
     {
         $int = new IntegerColumn('year int default 2015');
-        $this->assertTrue(is_int($int->getDefault()));
+        $this->assertEquals(2015, $int->getDefault());
     }
 
     /**

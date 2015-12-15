@@ -7,5 +7,5 @@ use Highideas\SqlToMigration\Queries\Columns\ColumnInterface;
 trait Index {
 
     use NotNull;
-
+    use DefaultValue;
 }

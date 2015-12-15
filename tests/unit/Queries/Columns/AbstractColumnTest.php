@@ -15,7 +15,7 @@ class AbstractColumnTest extends PHPUnit_Framework_TestCase
     {
         $stub = $this->getMockForAbstractClass(
             $this->classname,
-            ['age integer default 0']
+            ['age integer']
         );
 
         $this->assertTrue($stub->isNullable());

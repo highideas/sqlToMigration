@@ -2,8 +2,6 @@
 
 namespace Highideas\SqlToMigration\Queries\Columns;
 
-use Highideas\SqlToMigration\Exceptions\InvalidColumnException;
-
 class VarcharColumn extends AbstractColumn
 {
 
@@ -14,6 +12,8 @@ class VarcharColumn extends AbstractColumn
             $column,
             $this->splitColumn
         );
+        $this->setDefaultRegex("/^default\s+[`|'|\"]{1}(.*)[`|'|\"]{1}/i");
+
         if (empty($this->splitColumn))
             $this->setInvalidColumnException('Invalid Column.');
     }
@@ -36,21 +36,5 @@ class VarcharColumn extends AbstractColumn
     protected function isCharacter()
     {
         return strpos(strtolower($this->type), 'var') === false;
-    }
-
-    protected function defineDefault()
-    {
-        foreach ($this->splitColumn as $key => $value) {
-            if (strpos(strtolower($value), 'default') !== false) {
-                $this->default = preg_replace(
-                    "/^default\s+[`|'|\"]{1}(.*)[`|'|\"]{1}/i",
-                    "$1",
-                    $value
-                );
-                break;
-            }
-        }
-        if (empty($this->default))
-            $this->setInvalidColumnException('Invalid Default Value.');
     }
 }

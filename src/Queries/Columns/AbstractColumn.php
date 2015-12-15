@@ -21,7 +21,6 @@ abstract class AbstractColumn implements ColumnInterface
         2 => 'undefined'
     ];
 
-    abstract protected function defineDefault();
     abstract protected function match($column);
 
     public function __construct($column)
@@ -37,7 +36,7 @@ abstract class AbstractColumn implements ColumnInterface
         $this->name = $this->splitColumn[1];
         $this->type = $this->splitColumn[2];
         if ($this->hasDefault()) {
-            $this->defineDefault();
+            $this->setDefault();
         }
     }
 
