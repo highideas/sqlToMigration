@@ -3,18 +3,21 @@
 namespace Highideas\SqlToMigration\Queries\Columns;
 
 use Highideas\SqlToMigration\Exceptions\InvalidColumnException;
-use Highideas\SqlToMigration\Queries\Constraints\Constraint;
+use Highideas\SqlToMigration\Queries\Constraints\NotNull;
+use Highideas\SqlToMigration\Queries\Constraints\DefaultValue;
+use Highideas\SqlToMigration\Queries\Constraints\AutoIncrement;
 
 abstract class AbstractColumn implements ColumnInterface
 {
-    use Constraint;
+    use NotNull;
+    use DefaultValue;
+    use AutoIncrement;
 
     protected $name;
     protected $type;
     protected $raw;
     protected $size = 0;
     protected $defaultSize = 0;
-    protected $default = null;
     protected $splitColumn = [
         0 => 'unknown',
         1 => 'unknown',
@@ -25,7 +28,7 @@ abstract class AbstractColumn implements ColumnInterface
 
     public function __construct($column)
     {
-        $this->raw = $column;
+        $this->setRaw($column);
         $this->match($column);
         unset($this->splitColumn[0]);
         $this->prepare();
@@ -55,34 +58,14 @@ abstract class AbstractColumn implements ColumnInterface
         return $this->size;
     }
 
-    public function getDefault()
-    {
-        return $this->default;
-    }
-
     public function getRaw()
     {
         return $this->raw;
     }
 
-    public function isAutoIncrement()
+    public function setRaw($raw)
     {
-        $auto_increment = strpos(strtolower($this->getRaw()), 'auto_increment') !== false;
-        $autoincrement = strpos(strtolower($this->getRaw()), 'autoincrement') !== false;
-        return $auto_increment || $autoincrement;
-    }
-
-    public function hasDefault()
-    {
-        return strpos(strtolower($this->getRaw()), 'default') !== false;
-    }
-
-    protected function setInvalidColumnException($message)
-    {
-        throw new InvalidColumnException(
-            $this->getRaw(),
-            $message
-        );
+        $this->raw = $raw;
     }
 
     public function getDefaultSize()

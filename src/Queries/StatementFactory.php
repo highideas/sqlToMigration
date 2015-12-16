@@ -4,6 +4,7 @@ namespace Highideas\SqlToMigration\Queries;
 
 use Highideas\SqlToMigration\Queries\Columns\ColumnInterface;
 use Highideas\SqlToMigration\Queries\Columns\ColumnFactory;
+use Highideas\SqlToMigration\Queries\Constraints\ConstraintInterface;
 
 use Highideas\SqlToMigration\Exceptions\InvalidColumnException;
 
@@ -29,7 +30,9 @@ class StatementFactory
             if ($statement instanceOf ColumnInterface) {
                 $column[] = $statement;
             }
-            $columnDefinition[] = $statement;
+            if ($statement instanceOf ConstraintInterface) {
+                $columnDefinition[] = $statement;
+            }
         }
     }
 

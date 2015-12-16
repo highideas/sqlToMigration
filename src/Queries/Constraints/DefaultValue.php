@@ -6,6 +6,7 @@ use Highideas\SqlToMigration\Exceptions\InvalidColumnException;
 
 trait DefaultValue {
 
+    protected $default = null;
     protected $defaultRegex = '';
 
     protected function setDefault()
@@ -34,5 +35,15 @@ trait DefaultValue {
     public function getDefaultRegex()
     {
         return $this->defaultRegex;
+    }
+
+    public function hasDefault()
+    {
+        return strpos(strtolower($this->getRaw()), 'default') !== false;
+    }
+
+    public function getDefault()
+    {
+        return $this->default;
     }
 }
