@@ -1,10 +1,10 @@
 <?php
 
-namespace Highideas\SqlToMigration\Queries\Indexes;
+namespace Highideas\SqlToMigration\Queries\Constraints;
 
 use Highideas\SqlToMigration\Queries\Columns\ColumnInterface;
 
-trait Index {
+trait Constraint {
 
     use NotNull;
     use DefaultValue;

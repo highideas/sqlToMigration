@@ -3,11 +3,11 @@
 namespace Highideas\SqlToMigration\Queries\Columns;
 
 use Highideas\SqlToMigration\Exceptions\InvalidColumnException;
-use Highideas\SqlToMigration\Queries\Indexes\Index;
+use Highideas\SqlToMigration\Queries\Constraints\Constraint;
 
 abstract class AbstractColumn implements ColumnInterface
 {
-    use Index;
+    use Constraint;
 
     protected $name;
     protected $type;

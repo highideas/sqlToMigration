@@ -1,6 +1,6 @@
 <?php
 
-namespace Highideas\SqlToMigration\Queries\Indexes;
+namespace Highideas\SqlToMigration\Queries\Constraints;
 
 trait NotNull {
 
