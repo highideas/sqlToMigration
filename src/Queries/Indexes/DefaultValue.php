@@ -21,8 +21,9 @@ trait DefaultValue {
                 break;
             }
         }
-        if (empty($this->default))
+        if (empty($this->default)) {
             throw new InvalidColumnException($this->getRaw(), 'Invalid Default Value.');
+        }
     }
 
     public function setDefaultRegex($regex)

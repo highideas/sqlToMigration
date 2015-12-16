@@ -16,8 +16,9 @@ class IntegerColumn extends AbstractColumn
         );
         $this->setDefaultRegex("/^default\s+(\d+)/i");
 
-        if (empty($this->splitColumn))
+        if (empty($this->splitColumn)) {
             throw new InvalidColumnException($column, 'Invalid Column.');
+        }
     }
 
     protected function prepare()

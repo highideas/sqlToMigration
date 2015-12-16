@@ -14,8 +14,9 @@ class VarcharColumn extends AbstractColumn
         );
         $this->setDefaultRegex("/^default\s+[`|'|\"]{1}(.*)[`|'|\"]{1}/i");
 
-        if (empty($this->splitColumn))
+        if (empty($this->splitColumn)) {
             $this->setInvalidColumnException('Invalid Column.');
+        }
     }
 
     protected function prepare()

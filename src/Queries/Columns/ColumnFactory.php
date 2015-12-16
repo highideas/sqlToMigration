@@ -13,8 +13,10 @@ class ColumnFactory
     public static function instantiate($column)
     {
         preg_match("/^[`]*[a-zA-Z-_]+[`]*\s+(\w*)/i", $column, $output_array);
-        if (!isset($output_array[1]) || empty($output_array[1]))
+
+        if (!isset($output_array[1]) || empty($output_array[1])) {
             throw new InvalidColumnException($column, 'Column Not Found.');
+        }
 
         $columnType = trim(strtolower($output_array[1]));
 

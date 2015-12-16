@@ -14,8 +14,9 @@ class TextColumn extends AbstractColumn
             $column,
             $this->splitColumn
         );
-        if (empty($this->splitColumn))
+        if (empty($this->splitColumn)) {
             $this->setInvalidColumnException('Invalid Column.');
+        }
     }
 
     protected function defineDefault(){}
