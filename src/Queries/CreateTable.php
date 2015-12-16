@@ -8,7 +8,7 @@ class CreateTable implements QueryInterface
 {
     protected $query;
     protected $table;
-    protected $columns = [];
+    protected $statements;
 
     public function __construct($query)
     {
@@ -19,7 +19,7 @@ class CreateTable implements QueryInterface
     protected function run()
     {
         $this->defineTable();
-        $this->defineColumns();
+        $this->defineStatements();
     }
 
     protected function defineTable()
@@ -36,27 +36,9 @@ class CreateTable implements QueryInterface
         $this->table = $output_array[2];
     }
 
-    protected function defineColumns()
+    protected function defineStatements()
     {
-        $output_array = [];
-        $query = rtrim(ltrim(str_replace(';', '', $this->query), '('), ')');
-        preg_match_all(
-            "/[^\(|^\,][^\,]+\S+[^\,|\s]/i",
-            $query,
-            $output_array
-        );
-        if (empty($output_array)) {
-            throw new InvalidQueryException($query, 'Invalid Column.');
-        }
-        $columns = reset($output_array);
-        foreach ($columns as $key => $column) {
-            $this->columns[] = $this->getColumnInstance($column);
-        }
-    }
-
-    public function getColumnInstance($column)
-    {
-        return ColumnFactory::instantiate($column);
+        $this->statements = StatementFactory::instantiate($this->query);
     }
 
     public function getTable()
