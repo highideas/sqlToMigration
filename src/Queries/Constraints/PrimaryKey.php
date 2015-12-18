@@ -2,42 +2,44 @@
 
 namespace Highideas\SqlToMigration\Queries\Constraints;
 
+use Highideas\SqlToMigration\Exceptions\InvalidColumnException;
+
 class PrimaryKey extends AbstractConstraint {
 
-    protected $tables =[];
+    protected $columns =[];
 
-    protected function match($column)
+    protected function match()
     {
         preg_match(
-            "/(?=[`]*([a-zA-Z-_]+)[`]*.*PRIMARY KEY)|(?<=PRIMARY KEY)\s*\((['|`|\"]+.+['|`|\"]+)\)/i"
-            $column,
+            "/(?=[`]*([a-zA-Z-_]+)[`]*.*PRIMARY KEY)|(?<=PRIMARY KEY)\s*\((['|`|\"]+.+['|`|\"]+)\)/i",
+            $this->getRaw(),
             $this->splitStatement
         );
 
         if (empty($this->splitStatement)) {
-            throw new InvalidColumnException($column, 'Invalid Column.');
+            throw new InvalidColumnException($this->getRaw(), 'Invalid Column.');
         }
-        $this->defineTables();
+        $this->defineColumns();
     }
 
-    protected function defineTables()
+    protected function defineColumns()
     {
-        $tables = [];
+        $columns = [];
         if (!empty($this->splitStatement[1])) {
-            $tables[] = $this->splitStatement[1];
+            $columns[] = $this->splitStatement[1];
         } elseif (!empty($this->splitStatement[2])) {
-            $tables = explode(',', str_replace('`', '', $this->splitStatement[2]));
+            $columns = explode(',', str_replace('`', '', $this->splitStatement[2]));
         }
-        $this->setTables($tables);
+        $this->setColumns($columns);
     }
 
-    public function setTables(Array $tables)
+    public function setColumns(Array $columns)
     {
-        $this->tables = $tables;
+        $this->columns = $columns;
     }
 
-    public function getTables()
+    public function getColumns()
     {
-        return $this->tables;
+        return $this->columns;
     }
 }
