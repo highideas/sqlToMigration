@@ -9,6 +9,9 @@ abstract class AbstractConstraint implements ConstraintInterface {
     protected $name;
     protected $type;
     protected $raw;
+    protected $splitStatement = [
+        0 => 'unknown',
+    ];
 
     abstract protected function match($column);
 
@@ -16,9 +19,7 @@ abstract class AbstractConstraint implements ConstraintInterface {
     {
         $this->setRaw($column);
         $this->match($column);
-        unset($this->splitColumn[0]);
-        $this->setName($this->splitColumn[1]);
-        $this->setType($this->splitColumn[2]);
+        unset($this->splitStatement[0]);
     }
 
     public function getName()
