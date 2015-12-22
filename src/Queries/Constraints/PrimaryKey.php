@@ -4,7 +4,8 @@ namespace Highideas\SqlToMigration\Queries\Constraints;
 
 use Highideas\SqlToMigration\Exceptions\InvalidColumnException;
 
-class PrimaryKey extends AbstractConstraint {
+class PrimaryKey extends AbstractConstraint
+{
 
     protected $columns =[];
 
