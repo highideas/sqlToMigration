@@ -10,6 +10,7 @@ use \SplObjectStorage;
 
 class StatementCollection extends SplObjectStorage
 {
+    protected $primaryKeyInstance;
     protected $columns = [];
     protected $columnDefinitions = [];
 
@@ -32,7 +33,7 @@ class StatementCollection extends SplObjectStorage
         $statementType = trim(strtolower($output_array[1]));
 
         if ($statementType == 'primary key') {
-            $this->columnDefinitions[] = new PrimaryKey($column);
+            $this->getPrimaryKeyInstance()->addColumn($column);
         }
 
         try {
@@ -43,4 +44,11 @@ class StatementCollection extends SplObjectStorage
         return;
     }
 
+    public function getPrimaryKeyInstance()
+    {
+        if (!$this->primaryKeyInstance instanceof PrimaryKey) {
+            $this->primaryKeyInstance = new PrimaryKey();
+        }
+        return $this->primaryKeyInstance;
+    }
 }
