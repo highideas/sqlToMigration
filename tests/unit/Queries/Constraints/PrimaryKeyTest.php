@@ -11,7 +11,8 @@ class PrimaryKeyTest extends PHPUnit_Framework_TestCase
     public function testNewInstanceOfPrimaryKeyShouldReturnInvalidColumnExceptionWhenInvalidParamPassed()
     {
         try {
-            new PrimaryKey('Invalid column query');
+            $primaryKey = new PrimaryKey();
+            $primaryKey->addColumn('Invalid column query');
         }
 
         catch (\Highideas\SqlToMigration\Exceptions\InvalidColumnException $expected) {
@@ -23,15 +24,26 @@ class PrimaryKeyTest extends PHPUnit_Framework_TestCase
 
     public function testPrimaryKeyShouldReturnColumnsNamesWhenTableDefinition()
     {
-        $primaryKey = new PrimaryKey('PRIMARY KEY  (`RoleID`,`PermissionID`)');
-        $expected = ['RoleID','PermissionID',];
+        $primaryKey = new PrimaryKey();
+        $primaryKey->addColumn('PRIMARY KEY  (`RoleID`,`PermissionID`)');
+        $expected = ['RoleID' => 'RoleID','PermissionID' => 'PermissionID',];
         $this->assertEquals($expected, $primaryKey->getColumns());
     }
 
     public function testPrimaryKeyShouldReturnColumnsNamesWhenColumnDefinition()
     {
-        $primaryKey = new PrimaryKey('`ID` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,');
-        $expected = ['ID',];
+        $primaryKey = new PrimaryKey();
+        $primaryKey->addColumn('`ID` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,');
+        $expected = ['ID' => 'ID',];
+        $this->assertEquals($expected, $primaryKey->getColumns());
+    }
+
+    public function testPrimaryKeyShouldToConcentrateColumnsNamesWhenColumnDefinition()
+    {
+        $primaryKey = new PrimaryKey();
+        $primaryKey->addColumn('`ID` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,');
+        $primaryKey->addColumn('PRIMARY KEY  (`RoleID`,`PermissionID`)');
+        $expected = ['ID' => 'ID', 'RoleID' => 'RoleID','PermissionID' => 'PermissionID',];
         $this->assertEquals($expected, $primaryKey->getColumns());
     }
 }

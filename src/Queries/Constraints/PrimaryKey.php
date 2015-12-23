@@ -4,10 +4,14 @@ namespace Highideas\SqlToMigration\Queries\Constraints;
 
 use Highideas\SqlToMigration\Exceptions\InvalidColumnException;
 
-class PrimaryKey extends AbstractConstraint
+class PrimaryKey
 {
 
     protected $columns =[];
+    protected $raw;
+    protected $splitStatement = [
+        0 => 'unknown',
+    ];
 
     protected function match()
     {
@@ -25,22 +29,41 @@ class PrimaryKey extends AbstractConstraint
 
     protected function defineColumns()
     {
-        $columns = [];
-        if (!empty($this->splitStatement[1])) {
-            $columns[] = $this->splitStatement[1];
-        } elseif (!empty($this->splitStatement[2])) {
+        if (!empty($this->splitStatement[2])) {
             $columns = explode(',', str_replace('`', '', $this->splitStatement[2]));
+            array_map([$this, 'appendKey'], $columns);
+            return;
         }
-        $this->setColumns($columns);
+        if (!empty($this->splitStatement[1])) {
+            $this->appendKey($this->splitStatement[1]);
+        }
     }
 
-    public function setColumns(Array $columns)
+    public function addColumn($column)
     {
-        $this->columns = $columns;
+        $this->setRaw($column);
+        $this->match();
+        unset($this->splitStatement[0]);
+    }
+
+    public function appendKey($key)
+    {
+        $this->columns[$key] = $key;
     }
 
     public function getColumns()
     {
         return $this->columns;
     }
+
+    public function getRaw()
+    {
+        return $this->raw;
+    }
+
+    public function setRaw($raw)
+    {
+        $this->raw = $raw;
+    }
+
 }
