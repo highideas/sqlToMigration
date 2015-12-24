@@ -4,7 +4,7 @@ namespace Highideas\SqlToMigration\Queries\Columns;
 
 use Highideas\SqlToMigration\Exceptions\InvalidColumnException;
 
-class VarcharColumn extends AbstractColumn
+class VarcharColumn extends Column
 {
 
     protected function match($column)

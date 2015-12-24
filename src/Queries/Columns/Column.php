@@ -7,7 +7,7 @@ use Highideas\SqlToMigration\Queries\Constraints\NotNull;
 use Highideas\SqlToMigration\Queries\Constraints\DefaultValue;
 use Highideas\SqlToMigration\Queries\Constraints\AutoIncrement;
 
-abstract class AbstractColumn implements ColumnInterface
+abstract class Column implements ColumnInterface
 {
     use NotNull;
     use DefaultValue;

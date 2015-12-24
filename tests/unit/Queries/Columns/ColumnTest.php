@@ -4,12 +4,12 @@ namespace Highideas\SqlToMigration\Test\Queries\Columns;
 
 use \PHPUnit_Framework_TestCase;
 
-use Highideas\SqlToMigration\Queries\Columns\AbstractColumn;
+use Highideas\SqlToMigration\Queries\Columns\Column;
 
-class AbstractColumnTest extends PHPUnit_Framework_TestCase
+class ColumnTest extends PHPUnit_Framework_TestCase
 {
 
-    protected $classname = 'Highideas\SqlToMigration\Queries\Columns\AbstractColumn';
+    protected $classname = 'Highideas\SqlToMigration\Queries\Columns\Column';
 
     public function testIsNullableShouldReturnTrueWhenNotInformed()
     {
