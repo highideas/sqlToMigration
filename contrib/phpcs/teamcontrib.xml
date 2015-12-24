@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<ruleset name="TeamContrib">
+    <description>
+        The PHPCS rulesets applied.
+        This file is useful as a central repository of rules.
+    </description>
+
+    <rule ref="PSR2"/>
+
+</ruleset>

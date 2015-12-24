@@ -356,7 +356,7 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/gpweins/TeamContrib",
-                "reference": "0b9e50a6c98abeb9aec9c5f14d127f131f14a7cc"
+                "reference": "0b7da41b9b1d7c25c2e897c05e103e74eabfc331"
             },
             "require": {
                 "phpmd/phpmd": "@stable",
@@ -384,7 +384,7 @@
                 }
             ],
             "description": "Basic structure and scripts to setup a project with tools to enforce clean code.",
-            "time": "2015-12-24 11:40:46"
+            "time": "2015-12-24 13:01:12"
         },
         {
             "name": "guzzle/guzzle",
