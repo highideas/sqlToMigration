@@ -9,9 +9,10 @@ use Highideas\SqlToMigration\Queries\Constraints\AutoIncrement;
 
 abstract class Column implements ColumnInterface
 {
-    use NotNull;
-    use DefaultValue;
-    use AutoIncrement;
+
+    protected $default = null;
+    protected $defaultRegex = '';
+    protected $nullable = false;
 
     protected $name;
     protected $type;
@@ -29,6 +30,7 @@ abstract class Column implements ColumnInterface
     public function __construct($column)
     {
         $this->setRaw($column);
+        $this->setNullable(strpos(strtolower($this->getRaw()), 'not null') === false);
         $this->match($column);
         unset($this->splitColumn[0]);
         $this->prepare();
@@ -71,5 +73,53 @@ abstract class Column implements ColumnInterface
     public function getDefaultSize()
     {
         return $this->defaultSize;
+    }
+
+    protected function setDefault()
+    {
+
+        foreach ($this->splitColumn as $value) {
+            if (strpos(strtolower($value), 'default') !== false) {
+                $this->default = preg_replace(
+                    $this->getDefaultRegex(),
+                    "$1",
+                    $value
+                );
+                break;
+            }
+        }
+        if (empty($this->default)) {
+            throw new InvalidColumnException($this->getRaw(), 'Invalid Default Value.');
+        }
+    }
+
+    public function setDefaultRegex($regex)
+    {
+        $this->defaultRegex = $regex;
+    }
+
+    public function getDefaultRegex()
+    {
+        return $this->defaultRegex;
+    }
+
+    public function hasDefault()
+    {
+        return strpos(strtolower($this->getRaw()), 'default') !== false;
+    }
+
+    public function getDefault()
+    {
+        return $this->default;
+    }
+
+    public function isNullable()
+    {
+        return $this->nullable;
+    }
+
+    public function setNullable($nullable)
+    {
+        $this->nullable = $nullable;
     }
 }

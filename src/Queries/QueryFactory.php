@@ -12,7 +12,7 @@ class QueryFactory
     {
 
         switch ($query) {
-            case 'create_table':
+            case 'create':
                 return new CreateTable($query);
                 break;
 

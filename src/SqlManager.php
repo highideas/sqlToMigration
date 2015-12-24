@@ -2,7 +2,6 @@
 
 namespace Highideas\SqlToMigration;
 
-
 class SqlManager
 {
     protected $rawQuery;
@@ -16,15 +15,11 @@ class SqlManager
 
     protected function defineQuery()
     {
-        if ($this->isCreateTable()) {
-            $this->query = QueryFactory::instantiate('create_table');
+        $preFormatedRawQuery = trim(strtolower($this->rawQuery));
+
+        if (strpos($preFormatedRawQuery, 'create table') !== false) {
+            $this->query = QueryFactory::instantiate('create');
             return true;
         }
-    }
-
-    protected function isCreateTable()
-    {
-        $preFormatedRawQuery = trim(strtolower($this->rawQuery));
-        return strpos($preFormatedRawQuery, 'create table') !== false;
     }
 }

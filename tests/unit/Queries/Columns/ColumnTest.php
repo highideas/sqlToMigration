@@ -29,28 +29,4 @@ class ColumnTest extends PHPUnit_Framework_TestCase
         );
         $this->assertFalse($stub->isNullable());
     }
-
-    public function testIsAutoIncrementShouldReturnFalseWhenColumnIsNotAutoIncrement()
-    {
-        $stub = $this->getMockForAbstractClass(
-            $this->classname,
-            ['year int NOT null']
-        );
-        $this->assertFalse($stub->isAutoIncrement());
-    }
-
-    public function testIsAutoIncrementShouldReturnTrueWhenColumnIsAutoIncrement()
-    {
-        $stub = $this->getMockForAbstractClass(
-            $this->classname,
-            ['year int NOT null auto_increment']
-        );
-        $this->assertTrue($stub->isAutoIncrement());
-
-        $stub = $this->getMockForAbstractClass(
-            $this->classname,
-            ['year int NOT null AUTOINCREMENT']
-        );
-        $this->assertTrue($stub->isAutoIncrement());
-    }
 }

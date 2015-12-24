@@ -5,10 +5,10 @@ namespace Highideas\SqlToMigration\Queries\Constraints;
 use Highideas\SqlToMigration\Exceptions\InvalidColumnException;
 
 use Highideas\SqlToMigration\Queries\Columns\ColumnFactory;
+use Highideas\SqlToMigration\Queries\Columns\ColumnInterface;
 use Highideas\SqlToMigration\Queries\Constraints\PrimaryKey;
-use \SplObjectStorage;
 
-class StatementCollection extends SplObjectStorage
+class StatementCollection
 {
     protected $primaryKeyInstance;
     protected $columns = [];
@@ -16,32 +16,29 @@ class StatementCollection extends SplObjectStorage
 
     public function run(Array $statements)
     {
-        foreach ($statements as $key => $column) {
-            $this->getStatementInstance($column);
+        foreach ($statements as $column) {
+            $this->loadStatement($column);
         }
         return $this;
     }
 
-    public function getStatementInstance($column)
+    public function loadStatement($statement)
     {
-        preg_match("/^[`]*[a-zA-Z-_]*[`]*\s*(CHAR|VARCHAR|TEXT|INTEGER|PRIMARY\sKEY)/i", $column, $output_array);
+        preg_match("/^[`]*[a-zA-Z-_]*[`]*\s*(CHAR|VARCHAR|TEXT|INTEGER|PRIMARY\sKEY)/i", $statement, $outputArray);
 
-        if (!isset($output_array[1]) || empty($output_array[1])) {
-            throw new InvalidColumnException($column, 'Statement Not Found.');
+        if (!isset($outputArray[1]) || empty($outputArray[1])) {
+            throw new InvalidColumnException($statement, 'Statement Not Found.');
         }
 
-        $statementType = trim(strtolower($output_array[1]));
+        $statementType = trim(strtolower($outputArray[1]));
 
         if ($statementType == 'primary key') {
-            $this->getPrimaryKeyInstance()->addColumn($column);
+            $this->getPrimaryKeyInstance()->checkColumn($statement);
+            return;
         }
 
-        try {
-            $this->columns[] = ColumnFactory::instantiate($column);;
-        } catch (InvalidColumnException $e) {
-            print_r($e->getName());
-        }
-        return;
+        $column = ColumnFactory::instantiate($statement);
+        $this->setColumns($column);
     }
 
     public function getPrimaryKeyInstance()
@@ -50,5 +47,15 @@ class StatementCollection extends SplObjectStorage
             $this->primaryKeyInstance = new PrimaryKey();
         }
         return $this->primaryKeyInstance;
+    }
+
+    public function setColumns(ColumnInterface $column)
+    {
+        $this->columns[$column->getName()] = $column;
+    }
+
+    public function getColumns()
+    {
+        return $this->columns;
     }
 }

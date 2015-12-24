@@ -12,10 +12,8 @@ class PrimaryKeyTest extends PHPUnit_Framework_TestCase
     {
         try {
             $primaryKey = new PrimaryKey();
-            $primaryKey->addColumn('Invalid column query');
-        }
-
-        catch (\Highideas\SqlToMigration\Exceptions\InvalidColumnException $expected) {
+            $primaryKey->checkColumn('Invalid column query');
+        } catch (\Highideas\SqlToMigration\Exceptions\InvalidColumnException $expected) {
             $this->assertEquals('Invalid column query', $expected->getName());
             return;
         }
@@ -25,7 +23,7 @@ class PrimaryKeyTest extends PHPUnit_Framework_TestCase
     public function testPrimaryKeyShouldReturnColumnsNamesWhenTableDefinition()
     {
         $primaryKey = new PrimaryKey();
-        $primaryKey->addColumn('PRIMARY KEY  (`RoleID`,`PermissionID`)');
+        $primaryKey->checkColumn('PRIMARY KEY  (`RoleID`,`PermissionID`)');
         $expected = ['RoleID' => 'RoleID','PermissionID' => 'PermissionID',];
         $this->assertEquals($expected, $primaryKey->getColumns());
     }
@@ -33,7 +31,7 @@ class PrimaryKeyTest extends PHPUnit_Framework_TestCase
     public function testPrimaryKeyShouldReturnColumnsNamesWhenColumnDefinition()
     {
         $primaryKey = new PrimaryKey();
-        $primaryKey->addColumn('`ID` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,');
+        $primaryKey->checkColumn('`ID` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,');
         $expected = ['ID' => 'ID',];
         $this->assertEquals($expected, $primaryKey->getColumns());
     }
@@ -41,8 +39,8 @@ class PrimaryKeyTest extends PHPUnit_Framework_TestCase
     public function testPrimaryKeyShouldToConcentrateColumnsNamesWhenColumnDefinition()
     {
         $primaryKey = new PrimaryKey();
-        $primaryKey->addColumn('`ID` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,');
-        $primaryKey->addColumn('PRIMARY KEY  (`RoleID`,`PermissionID`)');
+        $primaryKey->checkColumn('`ID` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,');
+        $primaryKey->checkColumn('PRIMARY KEY  (`RoleID`,`PermissionID`)');
         $expected = ['ID' => 'ID', 'RoleID' => 'RoleID','PermissionID' => 'PermissionID',];
         $this->assertEquals($expected, $primaryKey->getColumns());
     }
