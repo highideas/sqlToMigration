@@ -4,7 +4,7 @@ namespace Highideas\SqlToMigration\Queries\Constraints;
 
 use Highideas\SqlToMigration\Exceptions\InvalidColumnException;
 
-class PrimaryKey
+class PrimaryKey implements ConstraintInterface
 {
 
     protected $columns =[];
@@ -64,12 +64,5 @@ class PrimaryKey
     public function setRaw($raw)
     {
         $this->raw = $raw;
-    }
-
-    public function isAutoIncrement()
-    {
-        $auto_increment = strpos(strtolower($this->getRaw()), 'auto_increment') !== false;
-        $autoincrement = strpos(strtolower($this->getRaw()), 'autoincrement') !== false;
-        return $auto_increment || $autoincrement;
     }
 }
