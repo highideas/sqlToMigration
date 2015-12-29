@@ -4,16 +4,16 @@ namespace Highideas\SqlToMigration\Test\Queries\Constraints;
 
 use \PHPUnit_Framework_TestCase;
 
-use Highideas\SqlToMigration\Queries\Constraints\StatementCollection;
+use Highideas\SqlToMigration\Queries\Constraints\Statement;
 use Highideas\SqlToMigration\Queries\Constraints\PrimaryKey;
 use Highideas\SqlToMigration\Queries\Columns\IntegerColumn;
 use Highideas\SqlToMigration\Queries\Columns\VarcharColumn;
 
-class StatementCollectionTest extends PHPUnit_Framework_TestCase
+class StatementTest extends PHPUnit_Framework_TestCase
 {
     public function testGetPrimaryKeyInstanceShouldReturnPrimaryKeyInstance()
     {
-        $collection = new StatementCollection();
+        $collection = new Statement();
         $this->assertInstanceOf(
             '\Highideas\SqlToMigration\Queries\Constraints\PrimaryKey',
             $collection->getPrimaryKeyInstance()
@@ -22,7 +22,7 @@ class StatementCollectionTest extends PHPUnit_Framework_TestCase
 
     public function testLoadStatementShouldReturnInvalidColumnExceptionWhenInvalidParamPassed()
     {
-        $collection = new StatementCollection();
+        $collection = new Statement();
         try {
             $collection->loadStatement('Invalid column query');
         } catch (\Highideas\SqlToMigration\Exceptions\InvalidColumnException $expected) {
@@ -39,7 +39,7 @@ class StatementCollectionTest extends PHPUnit_Framework_TestCase
         $int = new IntegerColumn('`Lft` INTEGER NOT NULL,');
         $char = new VarcharColumn('`Title` char(64) NOT NULL,');
 
-        $collection = new StatementCollection();
+        $collection = new Statement();
         $collection->loadStatement('`Lft` INTEGER NOT NULL,');
         $collection->loadStatement('`Title` char(64) NOT NULL,');
 
@@ -49,7 +49,7 @@ class StatementCollectionTest extends PHPUnit_Framework_TestCase
 
     public function testLoadStatementShouldUpdatePrimaryKeyInstance()
     {
-        $collection = new StatementCollection();
+        $collection = new Statement();
         $collection->loadStatement('PRIMARY KEY  (`RoleID`,`PermissionID`)');
         $expected = ['RoleID' => 'RoleID','PermissionID' => 'PermissionID',];
         $this->assertEquals($expected, $collection->getPrimaryKeyInstance()->getColumns());
@@ -65,7 +65,7 @@ class StatementCollectionTest extends PHPUnit_Framework_TestCase
             '`Title` char(64) NOT NULL,'
         ];
 
-        $collection = new StatementCollection();
+        $collection = new Statement();
         $collection->run($statements);
 
         $this->assertEquals($int, $collection->getColumns()['Lft']);

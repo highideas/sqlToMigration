@@ -8,7 +8,7 @@ use Highideas\SqlToMigration\Queries\Columns\ColumnFactory;
 use Highideas\SqlToMigration\Queries\Columns\ColumnInterface;
 use Highideas\SqlToMigration\Queries\Constraints\PrimaryKey;
 
-class StatementCollection
+class Statement
 {
     protected $primaryKeyInstance;
     protected $columns = [];
