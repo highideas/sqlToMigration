@@ -2,7 +2,9 @@
 
 namespace Highideas\SqlToMigration\Queries\Constraints;
 
-interface ConstraintInterface {
+interface ConstraintInterface
+{
     public function getRaw();
     public function setRaw($raw);
+    public function getColumns();
 }
