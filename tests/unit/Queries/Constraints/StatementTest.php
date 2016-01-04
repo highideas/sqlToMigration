@@ -13,18 +13,18 @@ class StatementTest extends PHPUnit_Framework_TestCase
 {
     public function testGetPrimaryKeyInstanceShouldReturnPrimaryKeyInstance()
     {
-        $collection = new Statement();
+        $statement = new Statement();
         $this->assertInstanceOf(
             '\Highideas\SqlToMigration\Queries\Constraints\PrimaryKey',
-            $collection->getPrimaryKeyInstance()
+            $statement->getPrimaryKeyInstance()
         );
     }
 
     public function testLoadStatementShouldReturnInvalidColumnExceptionWhenInvalidParamPassed()
     {
-        $collection = new Statement();
+        $statement = new Statement();
         try {
-            $collection->loadStatement('Invalid column query');
+            $statement->loadStatement('Invalid column query');
         } catch (\Highideas\SqlToMigration\Exceptions\InvalidColumnException $expected) {
             $this->assertEquals('Statement Not Found.', $expected->getMessage());
             $this->assertEquals('Invalid column query', $expected->getName());
@@ -39,20 +39,20 @@ class StatementTest extends PHPUnit_Framework_TestCase
         $int = new IntegerColumn('`Lft` INTEGER NOT NULL,');
         $char = new VarcharColumn('`Title` char(64) NOT NULL,');
 
-        $collection = new Statement();
-        $collection->loadStatement('`Lft` INTEGER NOT NULL,');
-        $collection->loadStatement('`Title` char(64) NOT NULL,');
+        $statement = new Statement();
+        $statement->loadStatement('`Lft` INTEGER NOT NULL,');
+        $statement->loadStatement('`Title` char(64) NOT NULL,');
 
-        $this->assertEquals($int, $collection->getColumns()['Lft']);
-        $this->assertEquals($char, $collection->getColumns()['Title']);
+        $this->assertEquals($int, $statement->getCollectionInstance()->get('Lft'));
+        $this->assertEquals($char, $statement->getCollectionInstance()->get('Title'));
     }
 
     public function testLoadStatementShouldUpdatePrimaryKeyInstance()
     {
-        $collection = new Statement();
-        $collection->loadStatement('PRIMARY KEY  (`RoleID`,`PermissionID`)');
+        $statement = new Statement();
+        $statement->loadStatement('PRIMARY KEY  (`RoleID`,`PermissionID`)');
         $expected = ['RoleID' => 'RoleID','PermissionID' => 'PermissionID',];
-        $this->assertEquals($expected, $collection->getPrimaryKeyInstance()->getColumns());
+        $this->assertEquals($expected, $statement->getPrimaryKeyInstance()->getColumns());
     }
 
     public function testRunShouldLoadStatements()
@@ -65,10 +65,10 @@ class StatementTest extends PHPUnit_Framework_TestCase
             '`Title` char(64) NOT NULL,'
         ];
 
-        $collection = new Statement();
-        $collection->run($statements);
+        $statement = new Statement();
+        $statement->run($statements);
 
-        $this->assertEquals($int, $collection->getColumns()['Lft']);
-        $this->assertEquals($char, $collection->getColumns()['Title']);
+        $this->assertEquals($int, $statement->getCollectionInstance()->get('Lft'));
+        $this->assertEquals($char, $statement->getCollectionInstance()->get('Title'));
     }
 }

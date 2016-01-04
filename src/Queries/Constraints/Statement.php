@@ -7,6 +7,7 @@ use Highideas\SqlToMigration\Exceptions\InvalidColumnException;
 use Highideas\SqlToMigration\Queries\Columns\ColumnFactory;
 use Highideas\SqlToMigration\Queries\Columns\ColumnInterface;
 use Highideas\SqlToMigration\Queries\Constraints\PrimaryKey;
+use Highideas\SqlToMigration\Collections\Collection;
 
 class Statement
 {
@@ -38,7 +39,15 @@ class Statement
         }
 
         $column = ColumnFactory::instantiate($statement);
-        $this->setColumns($column);
+        $this->getCollectionInstance()->add($column->getName(), $column);
+    }
+
+    public function getCollectionInstance()
+    {
+        if (!$this->columns instanceof Collection) {
+            $this->columns = new Collection();
+        }
+        return $this->columns;
     }
 
     public function getPrimaryKeyInstance()
@@ -47,15 +56,5 @@ class Statement
             $this->primaryKeyInstance = new PrimaryKey();
         }
         return $this->primaryKeyInstance;
-    }
-
-    public function setColumns(ColumnInterface $column)
-    {
-        $this->columns[$column->getName()] = $column;
-    }
-
-    public function getColumns()
-    {
-        return $this->columns;
     }
 }
