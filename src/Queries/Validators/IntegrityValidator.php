@@ -3,18 +3,20 @@
 namespace Highideas\SqlToMigration\Queries\Validators;
 
 use Highideas\SqlToMigration\Queries\Constraint\ConstraintInterface;
+use Highideas\SqlToMigration\Collections\Collection;
 
 /**
  * @property ConstraintInterface $constraint
- * @property ColumnInterface[] $columns
+ * @property Collection $columns
  */
 class IntegrityValidator implements ValidatorInterface
 {
 
     private $constraint;
     private $columns;
+    private $errors;
 
-    public function __construct(ConstraintInterface $constraint, Array $columns)
+    public function __construct(ConstraintInterface $constraint, Collection $columns)
     {
         $this->constraint = $constraint;
         $this->columns = $columns;
@@ -22,14 +24,27 @@ class IntegrityValidator implements ValidatorInterface
 
     public function constraintsIsInColumns()
     {
-        $constraints = $this->constraint->getColumns();
-        foreach ($this->columns as $column) {
-            $key = array_search($column->getName(), $constraints);
-            if ($key !== false) {
-                unset($constraints[$key]);
+        foreach ($this->constraint->getColumns() as $constraint) {
+            if (!$this->columns->exist($constraint)) {
+                $this->addError($constraint, 'Constraint do not exist in columns list');
             }
         }
-        return empty($constraints);
+        return !$this->hasError();
+    }
+
+    public function hasError()
+    {
+        return !empty($this->errors);
+    }
+
+    public function addError($attribute, $message)
+    {
+        $this->errors[$attribute][] = $message;
+    }
+
+    public function getErrors()
+    {
+        return $this->errors;
     }
 
     public function validate()
