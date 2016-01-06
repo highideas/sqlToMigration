@@ -2,7 +2,7 @@
 
 namespace Highideas\SqlToMigration\Queries\Validators;
 
-use Highideas\SqlToMigration\Queries\Constraint\ConstraintInterface;
+use Highideas\SqlToMigration\Queries\Constraints\ConstraintInterface;
 use Highideas\SqlToMigration\Collections\Collection;
 
 /**
@@ -34,7 +34,7 @@ class IntegrityValidator implements ValidatorInterface
 
     public function hasError()
     {
-        return !empty($this->errors);
+        return !empty($this->getErrors());
     }
 
     public function addError($attribute, $message)
@@ -49,6 +49,7 @@ class IntegrityValidator implements ValidatorInterface
 
     public function validate()
     {
-        return true;
+        $this->constraintsIsInColumns();
+        return empty($this->getErrors());
     }
 }
