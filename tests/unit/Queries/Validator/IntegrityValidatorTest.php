@@ -47,7 +47,7 @@ class IntegrityValidatorTest extends PHPUnit_Framework_TestCase
         $collection->add($column->getName(), $column);
         return $collection;
     }
-/**
+
     public function testValidateShouldReturnTrueIfErrorsNotFound()
     {
         $primaryKey = $this->createValidPrimaryKey();
@@ -63,7 +63,7 @@ class IntegrityValidatorTest extends PHPUnit_Framework_TestCase
         $validator = new IntegrityValidator($primaryKey, $collection);
         $this->assertFalse($validator->validate());
     }
-*/
+
     public function testGetErrorsShouldReturnListOfErrors()
     {
         $primaryKey = $this->createValidPrimaryKey();
