@@ -53,6 +53,7 @@ class IntegrityValidatorTest extends PHPUnit_Framework_TestCase
         $primaryKey = $this->createValidPrimaryKey();
         $collection = $this->createValidCollection();
         $validator = new IntegrityValidator($primaryKey, $collection);
+        $validator->setColumnsQuantityExpected(1);
         $this->assertTrue($validator->validate());
     }
 
@@ -69,11 +70,12 @@ class IntegrityValidatorTest extends PHPUnit_Framework_TestCase
         $primaryKey = $this->createValidPrimaryKey();
         $collection = $this->createInvalidCollection();
         $validator = new IntegrityValidator($primaryKey, $collection);
+        $validator->setColumnsQuantityExpected(1);
         $this->assertFalse($validator->validate());
         $expected = [
             'ID' => [
                 'Constraint do not exist in columns list',
-            ]
+            ],
         ];
         $result = $validator->getErrors();
         $this->assertEquals(

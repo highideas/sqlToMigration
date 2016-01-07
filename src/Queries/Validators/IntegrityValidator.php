@@ -15,6 +15,7 @@ class IntegrityValidator implements ValidatorInterface
     private $constraint;
     private $columns;
     private $errors;
+    private $columnsQuantityExpected = 0;
 
     public function __construct(ConstraintInterface $constraint, Collection $columns)
     {
@@ -30,6 +31,23 @@ class IntegrityValidator implements ValidatorInterface
             }
         }
         return !$this->hasError();
+    }
+
+    public function setColumnsQuantityExpected($expected)
+    {
+        $this->columnsQuantityExpected = $expected;
+    }
+
+    public function columnsQuantityExpected()
+    {
+        if ($this->columns->count() != $this->columnsQuantityExpected) {
+            $this->addError(
+                'invalidColumnsQuantityExpected',
+                'Columns Quantity Expected: ' . $this->columnsQuantityExpected .
+                ' Columns Quantity Found: ' . $this->columns->count()
+            );
+        }
+        return;
     }
 
     public function hasError()
@@ -50,6 +68,7 @@ class IntegrityValidator implements ValidatorInterface
     public function validate()
     {
         $this->constraintsIsInColumns();
+        $this->columnsQuantityExpected();
         return empty($this->getErrors());
     }
 }

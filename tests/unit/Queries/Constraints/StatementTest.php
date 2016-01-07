@@ -71,4 +71,16 @@ class StatementTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($int, $statement->getCollectionInstance()->get('Lft'));
         $this->assertEquals($char, $statement->getCollectionInstance()->get('Title'));
     }
+
+    public function testIsValidShouldReturnFalseWhenStatementInvalidInformed()
+    {
+        $statements = [
+            '`Lft` INTEGER NOT NULL,',
+            'invalid column,'
+        ];
+
+        $statement = new Statement();
+        $statement->run($statements);
+        $this->assertFalse($statement->isValid());
+    }
 }

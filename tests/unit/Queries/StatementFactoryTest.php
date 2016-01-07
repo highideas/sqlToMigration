@@ -9,7 +9,7 @@ use Highideas\SqlToMigration\Queries\StatementFactory;
 class StatementFactoryTest extends PHPUnit_Framework_TestCase
 {
 
-    protected function query()
+    protected function validQuery()
     {
         return '(            `ID` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,' .
             '            `Lft` INTEGER NOT NULL,' .
@@ -18,9 +18,28 @@ class StatementFactoryTest extends PHPUnit_Framework_TestCase
             '            `Description` text NOT NULL        );';
     }
 
-    public function testInstantiateShouldReturnStatementInstance()
+    protected function invalidQuery()
     {
-        $statements = StatementFactory::instantiate($this->query());
+        return '(            `ID` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,' .
+            '            `Lft` INTEGER NOT NULL,' .
+            '            `Rght` INTEGER NOT NULL,' .
+            '            `Title` char(64) NOT NULL,' .
+            '            invalid statement,' .
+            '            `Description` text NOT NULL        );';
+    }
+
+    public function testInstantiateShouldReturnStatementInstanceWhenValidQueryPassed()
+    {
+        $statements = StatementFactory::instantiate($this->validQuery());
+        $this->assertInstanceOf(
+            '\Highideas\SqlToMigration\Queries\Constraints\Statement',
+            $statements
+        );
+    }
+
+    public function testInstantiateShouldReturnStatementInstanceWhenInvalidQueryPassed()
+    {
+        $statements = StatementFactory::instantiate($this->invalidQuery());
         $this->assertInstanceOf(
             '\Highideas\SqlToMigration\Queries\Constraints\Statement',
             $statements

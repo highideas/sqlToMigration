@@ -51,4 +51,12 @@ class CollectionTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($collection->exist(2));
         $this->assertTrue($collection->exist('A'));
     }
+
+    public function testCountShouldReturnQuantityItems()
+    {
+        $collection = new Collection();
+        $collection->add('A', 1);
+        $collection->add(2, 'B');
+        $this->assertEquals(2, $collection->count());
+    }
 }
