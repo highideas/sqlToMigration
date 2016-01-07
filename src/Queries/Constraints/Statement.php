@@ -31,9 +31,7 @@ class Statement
             throw new InvalidColumnException($statement, 'Statement Not Found.');
         }
 
-        $statementType = trim(strtolower($outputArray[1]));
-
-        if ($statementType == 'primary key') {
+        if (strpos(trim(strtolower($statement)), 'primary key') !== false) {
             $this->getPrimaryKeyInstance()->checkColumn($statement);
             return;
         }

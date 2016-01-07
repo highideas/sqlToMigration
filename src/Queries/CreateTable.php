@@ -9,6 +9,7 @@ class CreateTable implements QueryInterface
     protected $query;
     protected $table;
     protected $statements;
+    protected $rawStatements;
 
     public function __construct($query)
     {
@@ -26,7 +27,7 @@ class CreateTable implements QueryInterface
     {
         $output_array = [];
         preg_match(
-            "/(CREATE TABLE IF NOT EXISTS|CREATE TABLE)[\s|`|']+([0-9a-zA-Z-_]+)[\s|`|'|\(]+/i",
+            "/(CREATE TABLE IF NOT EXISTS|CREATE TABLE)[\s|`|']+([0-9a-zA-Z-_]+)[\s|`|'|\(](.*)/i",
             $this->query,
             $output_array
         );
@@ -34,11 +35,12 @@ class CreateTable implements QueryInterface
             throw new InvalidQueryException($query, 'Invalid Table.');
         }
         $this->table = $output_array[2];
+        $this->rawStatements = $output_array[3];
     }
 
     protected function defineStatements()
     {
-        $this->statements = StatementFactory::instantiate($this->query);
+        $this->statements = StatementFactory::instantiate($this->rawStatements);
     }
 
     public function getTable()
