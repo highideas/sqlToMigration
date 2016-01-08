@@ -6,81 +6,68 @@ use \PHPUnit_Framework_TestCase;
 
 use Highideas\SqlToMigration\Collections\Collection;
 use Highideas\SqlToMigration\Queries\Validators\IntegrityValidator;
-use Highideas\SqlToMigration\Queries\Columns\ColumnFactory;
-use Highideas\SqlToMigration\Queries\Constraints\PrimaryKey;
+use Highideas\SqlToMigration\Queries\Constraints\Statement;
 
 class IntegrityValidatorTest extends PHPUnit_Framework_TestCase
 {
 
     protected $validStatement = '`ID` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,';
-    protected $invalidStatement = '`NAME` VARCHAR,';
+    protected $invalidStatement = 'invalid column';
 
-    protected function createValidPrimaryKey()
+    protected function createValidStatement()
     {
-        $primaryKey = new PrimaryKey();
-        $primaryKey->checkColumn($this->validStatement);
-        return $primaryKey;
+        $statement = new Statement();
+        $statement->run(['`ID` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,']);
+        return $statement;
     }
 
-    protected function createValidColumn()
+    protected function createInvalidStatement()
     {
-        return ColumnFactory::instantiate($this->validStatement);
-    }
-
-    protected function createInvalidColumn()
-    {
-        return ColumnFactory::instantiate($this->invalidStatement);
-    }
-
-    protected function createValidCollection()
-    {
-        $column = $this->createValidColumn();
-        $collection = new Collection();
-        $collection->add($column->getName(), $column);
-        return $collection;
-    }
-
-    protected function createInvalidCollection()
-    {
-        $column = $this->createInvalidColumn();
-        $collection = new Collection();
-        $collection->add($column->getName(), $column);
-        return $collection;
+        $statement = new Statement();
+        $statement->run(
+            [
+                'invalid column,',
+                '`NAME` VARCHAR,',
+                'PRIMARY KEY (`ID`),'
+            ]
+        );
+        return $statement;
     }
 
     public function testValidateShouldReturnTrueIfErrorsNotFound()
     {
-        $primaryKey = $this->createValidPrimaryKey();
-        $collection = $this->createValidCollection();
-        $validator = new IntegrityValidator($primaryKey, $collection);
-        $validator->setColumnsQuantityExpected(1);
-        $this->assertTrue($validator->validate());
+        $validStatement = $this->createValidStatement();
+        $validator = new IntegrityValidator($validStatement);
+        $result = $validator->validate();
+        $this->assertTrue($result);
     }
 
     public function testValidateShouldReturnFalseIfErrorsFound()
     {
-        $primaryKey = $this->createValidPrimaryKey();
-        $collection = $this->createInvalidCollection();
-        $validator = new IntegrityValidator($primaryKey, $collection);
+        $invalidStatement = $this->createInvalidStatement();
+        $validator = new IntegrityValidator($invalidStatement);
         $this->assertFalse($validator->validate());
     }
 
     public function testGetErrorsShouldReturnListOfErrors()
     {
-        $primaryKey = $this->createValidPrimaryKey();
-        $collection = $this->createInvalidCollection();
-        $validator = new IntegrityValidator($primaryKey, $collection);
-        $validator->setColumnsQuantityExpected(1);
+        $invalidStatement = $this->createInvalidStatement();
+        $validator = new IntegrityValidator($invalidStatement);
         $this->assertFalse($validator->validate());
         $expected = [
             'ID' => [
                 'Constraint do not exist in columns list',
             ],
+            'invalidColumnsQuantityExpected' => [
+                'Columns Quantity Expected: 3 Columns Quantity Found: 1',
+            ],
         ];
         $result = $validator->getErrors();
         $this->assertEquals(
             $expected,
-            $result
+            $result,
+            'Expected: ' . print_r($expected, true) .
+            'Result: ' . print_r($result, true)
         );
     }
 }

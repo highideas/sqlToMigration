@@ -13,8 +13,7 @@ use Highideas\SqlToMigration\Collections\Collection;
 class Statement
 {
     protected $primaryKeyInstance;
-    protected $columns = [];
-    protected $columnDefinitions = [];
+    protected $columns;
     protected $columnsQuantity = 0;
 
     public function run(Array $statements)
@@ -40,7 +39,6 @@ class Statement
 
         if (strpos(trim(strtolower($statement)), 'primary key') !== false) {
             $this->getPrimaryKeyInstance()->checkColumn($statement);
-            return;
         }
 
         $column = ColumnFactory::instantiate($statement);
@@ -63,10 +61,14 @@ class Statement
         return $this->primaryKeyInstance;
     }
 
+    public function getColumnsQuantity()
+    {
+        return $this->columnsQuantity;
+    }
+
     public function isValid()
     {
-        $validator = new IntegrityValidator($this->getPrimaryKeyInstance(), $this->getCollectionInstance());
-        $validator->setColumnsQuantityExpected($this->columnsQuantity);
+        $validator = new IntegrityValidator($this);
         return $validator->validate();
     }
 }

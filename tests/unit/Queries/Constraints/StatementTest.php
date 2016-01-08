@@ -50,7 +50,7 @@ class StatementTest extends PHPUnit_Framework_TestCase
     public function testLoadStatementShouldUpdatePrimaryKeyInstance()
     {
         $statement = new Statement();
-        $statement->loadStatement('PRIMARY KEY  (`RoleID`,`PermissionID`)');
+        $statement->run(['PRIMARY KEY  (`RoleID`,`PermissionID`)']);
         $expected = ['RoleID' => 'RoleID','PermissionID' => 'PermissionID',];
         $this->assertEquals($expected, $statement->getPrimaryKeyInstance()->getColumns());
     }
