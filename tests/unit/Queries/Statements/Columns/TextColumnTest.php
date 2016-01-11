@@ -1,10 +1,10 @@
 <?php
 
-namespace Highideas\SqlToMigration\Test\Queries\Columns;
+namespace Highideas\SqlToMigration\Test\Queries\Statements\Columns;
 
 use \PHPUnit_Framework_TestCase;
 
-use Highideas\SqlToMigration\Queries\Columns\TextColumn;
+use Highideas\SqlToMigration\Queries\Statements\Columns\TextColumn;
 
 class TextColumnTest extends PHPUnit_Framework_TestCase
 {
@@ -35,7 +35,7 @@ class TextColumnTest extends PHPUnit_Framework_TestCase
         $text = new TextColumn('`Description` text NOT NULL');
         $this->assertNull($text->getDefault());
 
-        $stub = $this->getMockBuilder('Highideas\SqlToMigration\Queries\Columns\TextColumn')
+        $stub = $this->getMockBuilder('Highideas\SqlToMigration\Queries\Statements\Columns\TextColumn')
             ->setMethods(['__construct'])
             ->setConstructorArgs(['`Description` text NOT NULL'])
             ->disableOriginalConstructor()

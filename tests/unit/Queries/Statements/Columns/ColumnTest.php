@@ -1,15 +1,15 @@
 <?php
 
-namespace Highideas\SqlToMigration\Test\Queries\Columns;
+namespace Highideas\SqlToMigration\Test\Queries\Statements\Columns;
 
 use \PHPUnit_Framework_TestCase;
 
-use Highideas\SqlToMigration\Queries\Columns\Column;
+use Highideas\SqlToMigration\Queries\Statements\Columns\Column;
 
 class ColumnTest extends PHPUnit_Framework_TestCase
 {
 
-    protected $classname = 'Highideas\SqlToMigration\Queries\Columns\Column';
+    protected $classname = 'Highideas\SqlToMigration\Queries\Statements\Columns\Column';
 
     public function testIsNullableShouldReturnTrueWhenNotInformed()
     {

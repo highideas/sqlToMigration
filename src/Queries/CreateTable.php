@@ -2,7 +2,7 @@
 
 namespace Highideas\SqlToMigration\Queries;
 
-use Highideas\SqlToMigration\Queries\Columns\ColumnFactory;
+use Highideas\SqlToMigration\Queries\Statements\Columns\ColumnFactory;
 
 class CreateTable implements QueryInterface
 {

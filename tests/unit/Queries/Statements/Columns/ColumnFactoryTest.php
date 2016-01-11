@@ -1,10 +1,10 @@
 <?php
 
-namespace Highideas\SqlToMigration\Test\Queries\Columns;
+namespace Highideas\SqlToMigration\Test\Queries\Statements\Columns;
 
 use \PHPUnit_Framework_TestCase;
 
-use Highideas\SqlToMigration\Queries\Columns\ColumnFactory;
+use Highideas\SqlToMigration\Queries\Statements\Columns\ColumnFactory;
 
 class ColumnFactoryTest extends PHPUnit_Framework_TestCase
 {
@@ -12,7 +12,7 @@ class ColumnFactoryTest extends PHPUnit_Framework_TestCase
     {
         $class = ColumnFactory::instantiate('`Title` varchar(128) NOT NULL');
         $this->assertInstanceOf(
-            'Highideas\SqlToMigration\Queries\Columns\VarcharColumn',
+            'Highideas\SqlToMigration\Queries\Statements\Columns\VarcharColumn',
             $class
         );
     }
@@ -21,7 +21,7 @@ class ColumnFactoryTest extends PHPUnit_Framework_TestCase
     {
         $class = ColumnFactory::instantiate('`Rght` INTEGER NOT NULL');
         $this->assertInstanceOf(
-            'Highideas\SqlToMigration\Queries\Columns\IntegerColumn',
+            'Highideas\SqlToMigration\Queries\Statements\Columns\IntegerColumn',
             $class
         );
     }
@@ -30,7 +30,7 @@ class ColumnFactoryTest extends PHPUnit_Framework_TestCase
     {
         $class = ColumnFactory::instantiate('`Description` text NOT NULL');
         $this->assertInstanceOf(
-            'Highideas\SqlToMigration\Queries\Columns\TextColumn',
+            'Highideas\SqlToMigration\Queries\Statements\Columns\TextColumn',
             $class
         );
     }

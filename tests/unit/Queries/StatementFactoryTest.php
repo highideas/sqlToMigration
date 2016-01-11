@@ -32,7 +32,7 @@ class StatementFactoryTest extends PHPUnit_Framework_TestCase
     {
         $statements = StatementFactory::instantiate($this->validQuery());
         $this->assertInstanceOf(
-            '\Highideas\SqlToMigration\Queries\Constraints\Statement',
+            '\Highideas\SqlToMigration\Queries\Statements\Statement',
             $statements
         );
     }
@@ -41,7 +41,7 @@ class StatementFactoryTest extends PHPUnit_Framework_TestCase
     {
         $statements = StatementFactory::instantiate($this->invalidQuery());
         $this->assertInstanceOf(
-            '\Highideas\SqlToMigration\Queries\Constraints\Statement',
+            '\Highideas\SqlToMigration\Queries\Statements\Statement',
             $statements
         );
     }

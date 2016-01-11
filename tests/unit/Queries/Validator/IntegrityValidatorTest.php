@@ -6,7 +6,7 @@ use \PHPUnit_Framework_TestCase;
 
 use Highideas\SqlToMigration\Collections\Collection;
 use Highideas\SqlToMigration\Queries\Validators\IntegrityValidator;
-use Highideas\SqlToMigration\Queries\Constraints\Statement;
+use Highideas\SqlToMigration\Queries\Statements\Statement;
 
 class IntegrityValidatorTest extends PHPUnit_Framework_TestCase
 {

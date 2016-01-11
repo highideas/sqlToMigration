@@ -1,12 +1,12 @@
 <?php
 
-namespace Highideas\SqlToMigration\Queries\Constraints;
+namespace Highideas\SqlToMigration\Queries\Statements;
 
 use Highideas\SqlToMigration\Exceptions\InvalidColumnException;
 
-use Highideas\SqlToMigration\Queries\Columns\ColumnFactory;
-use Highideas\SqlToMigration\Queries\Columns\ColumnInterface;
-use Highideas\SqlToMigration\Queries\Constraints\PrimaryKey;
+use Highideas\SqlToMigration\Queries\Statements\Columns\ColumnFactory;
+use Highideas\SqlToMigration\Queries\Statements\Columns\ColumnInterface;
+use Highideas\SqlToMigration\Queries\Statements\Constraints\PrimaryKey;
 use Highideas\SqlToMigration\Queries\Validators\IntegrityValidator;
 use Highideas\SqlToMigration\Collections\Collection;
 

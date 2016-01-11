@@ -1,10 +1,10 @@
 <?php
 
-namespace Highideas\SqlToMigration\Test\Queries\Columns;
+namespace Highideas\SqlToMigration\Test\Queries\Statements\Columns;
 
 use \PHPUnit_Framework_TestCase;
 
-use Highideas\SqlToMigration\Queries\Columns\IntegerColumn;
+use Highideas\SqlToMigration\Queries\Statements\Columns\IntegerColumn;
 
 class IntegerColumnTest extends PHPUnit_Framework_TestCase
 {
@@ -12,9 +12,7 @@ class IntegerColumnTest extends PHPUnit_Framework_TestCase
     {
         try {
             new IntegerColumn('Invalid column query');
-        }
-
-        catch (\Highideas\SqlToMigration\Exceptions\InvalidColumnException $expected) {
+        } catch (\Highideas\SqlToMigration\Exceptions\InvalidColumnException $expected) {
             $this->assertEquals('Invalid column query', $expected->getName());
             return;
         }

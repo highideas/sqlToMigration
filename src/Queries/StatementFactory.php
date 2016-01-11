@@ -3,7 +3,7 @@
 namespace Highideas\SqlToMigration\Queries;
 
 use Highideas\SqlToMigration\Exceptions\InvalidQueryException;
-use Highideas\SqlToMigration\Queries\Constraints\Statement;
+use Highideas\SqlToMigration\Queries\Statements\Statement;
 
 class StatementFactory
 {

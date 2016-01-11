@@ -2,9 +2,9 @@
 
 namespace Highideas\SqlToMigration\Queries\Validators;
 
-use Highideas\SqlToMigration\Queries\Constraints\ConstraintInterface;
+use Highideas\SqlToMigration\Queries\Statements\Constraints\ConstraintInterface;
 use Highideas\SqlToMigration\Collections\Collection;
-use Highideas\SqlToMigration\Queries\Constraints\Statement;
+use Highideas\SqlToMigration\Queries\Statements\Statement;
 
 /**
  * @property ConstraintInterface $constraint
