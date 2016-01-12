@@ -28,8 +28,7 @@
     "require-dev": {
         "phpunit/phpunit" : "5.1.*",
         "scrutinizer/ocular": "~1.1",
-        "gpweins/team-contrib": "dev-master",
-        "mscribellito/ArrayList": "dev-master"
+        "gpweins/team-contrib": "dev-master"
     },
     "autoload": {
         "psr-4": {
@@ -61,10 +60,6 @@
         {
             "type": "git",
             "url": "https://github.com/gpweins/TeamContrib"
-        },
-        {
-            "type": "git",
-            "url": "https://github.com/marcoaraujojunior/ArrayList"
         }
     ]
 }

@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "b66c4abcada67edb80afd3d0c284e7c1",
-    "content-hash": "371c2cf2f9735d47c7215fe2fde38698",
+    "hash": "8ea642bbf65521ad2973364486d2a786",
+    "content-hash": "7653ac24a9a9356bca454fab39523bda",
     "packages": [
         {
             "name": "doctrine/inflector",
@@ -640,37 +640,6 @@
                 "xml"
             ],
             "time": "2015-10-27 09:24:41"
-        },
-        {
-            "name": "mscribellito/ArrayList",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/marcoaraujojunior/ArrayList",
-                "reference": "367257384b2d38a1f7bdfabff993f8688a2710a6"
-            },
-            "require": {
-                "php": ">=5.4"
-            },
-            "type": "library",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Michael Scribellito",
-                    "email": "mscribellito@gmail.com",
-                    "homepage": "http://mscribellito.com",
-                    "role": "Author"
-                },
-                {
-                    "name": "Marco Araujo",
-                    "email": "marco.araujo.junior@gmail.com",
-                    "role": "Contributor"
-                }
-            ],
-            "description": "ArrayList is an implementation of a list, backed by an array. It provides methods for adding, removing, searching and sorting elements.",
-            "time": "2016-01-05 19:48:39"
         },
         {
             "name": "myclabs/deep-copy",
@@ -2364,8 +2333,7 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "gpweins/team-contrib": 20,
-        "mscribellito/arraylist": 20
+        "gpweins/team-contrib": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
