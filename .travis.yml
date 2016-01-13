@@ -21,4 +21,4 @@ before_script: composer install
 
 # omitting "script:" will default to phpunit
 # use the $DB env variable to determine the phpunit.xml to use
-script: ../vendor/bin/phpunit unit/
+script: cd tests && ../vendor/bin/phpunit unit/
