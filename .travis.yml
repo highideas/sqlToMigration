@@ -17,8 +17,11 @@ matrix:
     - php: hhvm
 
 # execute any number of scripts before the test run, custom env's are available as variables
-before_script: composer install
+before_script: 
+	- /home/travis/.phpenv/versions/5.6/bin/composer self-update
+	- composer install
+	- cd tests
 
 # omitting "script:" will default to phpunit
 # use the $DB env variable to determine the phpunit.xml to use
-script: cd tests && ../vendor/bin/phpunit unit/
+script: sh run
