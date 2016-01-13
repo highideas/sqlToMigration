@@ -1,10 +1,10 @@
 <?php
 
-namespace Highideas\SqlToMigration\Test\Queries\Columns;
+namespace Highideas\SqlToMigration\Test\Queries\Statements\Columns;
 
 use \PHPUnit_Framework_TestCase;
 
-use Highideas\SqlToMigration\Queries\Columns\VarcharColumn;
+use Highideas\SqlToMigration\Queries\Statements\Columns\VarcharColumn;
 
 class VarcharColumnTest extends PHPUnit_Framework_TestCase
 {

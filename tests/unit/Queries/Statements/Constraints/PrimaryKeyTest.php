@@ -1,10 +1,10 @@
 <?php
 
-namespace Highideas\SqlToMigration\Test\Queries\Constraints;
+namespace Highideas\SqlToMigration\Test\Queries\Statements\Constraints;
 
 use \PHPUnit_Framework_TestCase;
 
-use Highideas\SqlToMigration\Queries\Constraints\PrimaryKey;
+use Highideas\SqlToMigration\Queries\Statements\Constraints\PrimaryKey;
 
 class PrimaryKeyTest extends PHPUnit_Framework_TestCase
 {

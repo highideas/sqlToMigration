@@ -1,6 +1,6 @@
 <?php
 
-namespace Highideas\SqlToMigration\Queries\Constraints;
+namespace Highideas\SqlToMigration\Queries\Statements\Constraints;
 
 use Highideas\SqlToMigration\Exceptions\InvalidColumnException;
 

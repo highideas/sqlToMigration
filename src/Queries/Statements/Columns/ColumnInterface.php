@@ -1,6 +1,6 @@
 <?php
 
-namespace Highideas\SqlToMigration\Queries\Columns;
+namespace Highideas\SqlToMigration\Queries\Statements\Columns;
 
 interface ColumnInterface
 {

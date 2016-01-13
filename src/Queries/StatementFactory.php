@@ -3,24 +3,24 @@
 namespace Highideas\SqlToMigration\Queries;
 
 use Highideas\SqlToMigration\Exceptions\InvalidQueryException;
-use Highideas\SqlToMigration\Queries\Constraints\Statement;
+use Highideas\SqlToMigration\Queries\Statements\Statement;
 
 class StatementFactory
 {
 
     public static function instantiate($query)
     {
-        $output_array = [];
+        $outputArray = [];
         $query = rtrim(ltrim(str_replace(';', '', $query), '('), ')');
         preg_match_all(
             "/\s*([^\(|^\,][^\,]+\S+[^\,|\s])/i",
             $query,
-            $output_array
+            $outputArray
         );
-        if (empty($output_array)) {
+        if (empty($outputArray[1])) {
             throw new InvalidQueryException($query, 'Invalid Query.');
         }
-        $statements = $output_array[1];
+        $statements = $outputArray[1];
         $statement = new Statement();
 
         return $statement->run($statements);

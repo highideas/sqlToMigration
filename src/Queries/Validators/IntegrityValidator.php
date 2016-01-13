@@ -2,8 +2,9 @@
 
 namespace Highideas\SqlToMigration\Queries\Validators;
 
-use Highideas\SqlToMigration\Queries\Constraints\ConstraintInterface;
+use Highideas\SqlToMigration\Queries\Statements\Constraints\ConstraintInterface;
 use Highideas\SqlToMigration\Collections\Collection;
+use Highideas\SqlToMigration\Queries\Statements\Statement;
 
 /**
  * @property ConstraintInterface $constraint
@@ -12,39 +13,32 @@ use Highideas\SqlToMigration\Collections\Collection;
 class IntegrityValidator implements ValidatorInterface
 {
 
-    private $constraint;
+    private $statement;
     private $columns;
     private $errors;
-    private $columnsQuantityExpected = 0;
 
-    public function __construct(ConstraintInterface $constraint, Collection $columns)
+    public function __construct(Statement $statement)
     {
-        $this->constraint = $constraint;
-        $this->columns = $columns;
+        $this->statement = $statement;
     }
 
     public function constraintsIsInColumns()
     {
-        foreach ($this->constraint->getColumns() as $constraint) {
-            if (!$this->columns->exist($constraint)) {
+        foreach ($this->statement->getPrimaryKeyInstance()->getColumns() as $constraint) {
+            if (!$this->statement->getCollectionInstance()->exist($constraint)) {
                 $this->addError($constraint, 'Constraint do not exist in columns list');
             }
         }
         return !$this->hasError();
     }
 
-    public function setColumnsQuantityExpected($expected)
-    {
-        $this->columnsQuantityExpected = $expected;
-    }
-
     public function columnsQuantityExpected()
     {
-        if ($this->columns->count() != $this->columnsQuantityExpected) {
+        if ($this->statement->getCollectionInstance()->count() != $this->statement->getColumnsQuantity()) {
             $this->addError(
                 'invalidColumnsQuantityExpected',
-                'Columns Quantity Expected: ' . $this->columnsQuantityExpected .
-                ' Columns Quantity Found: ' . $this->columns->count()
+                'Columns Quantity Expected: ' . $this->statement->getColumnsQuantity() .
+                ' Columns Quantity Found: ' . $this->statement->getCollectionInstance()->count()
             );
         }
         return;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Highideas\SqlToMigration\Test\Queries\Validators;
+namespace Highideas\SqlToMigration\Test\Queries;
 
 use \PHPUnit_Framework_TestCase;
 
@@ -30,19 +30,26 @@ class StatementFactoryTest extends PHPUnit_Framework_TestCase
 
     public function testInstantiateShouldReturnStatementInstanceWhenValidQueryPassed()
     {
-        $statements = StatementFactory::instantiate($this->validQuery());
         $this->assertInstanceOf(
-            '\Highideas\SqlToMigration\Queries\Constraints\Statement',
-            $statements
+            '\Highideas\SqlToMigration\Queries\Statements\Statement',
+            StatementFactory::instantiate($this->validQuery())
         );
     }
 
     public function testInstantiateShouldReturnStatementInstanceWhenInvalidQueryPassed()
     {
-        $statements = StatementFactory::instantiate($this->invalidQuery());
         $this->assertInstanceOf(
-            '\Highideas\SqlToMigration\Queries\Constraints\Statement',
-            $statements
+            '\Highideas\SqlToMigration\Queries\Statements\Statement',
+            StatementFactory::instantiate($this->invalidQuery())
         );
+    }
+
+    /**
+     * @expectedException        Highideas\SqlToMigration\Exceptions\InvalidQueryException
+     * @expectedExceptionMessage Invalid Query.
+     */
+    public function testInstantiateShouldGenerateInvalidQueryExceptionWhenEmptyStringInformed()
+    {
+        StatementFactory::instantiate('');
     }
 }

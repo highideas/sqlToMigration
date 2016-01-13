@@ -2,7 +2,7 @@
 
 namespace Highideas\SqlToMigration\Queries;
 
-use Highideas\SqlToMigration\Queries\Columns\ColumnFactory;
+use Highideas\SqlToMigration\Queries\Statements\Columns\ColumnFactory;
 
 class CreateTable implements QueryInterface
 {
@@ -25,17 +25,17 @@ class CreateTable implements QueryInterface
 
     protected function defineTable()
     {
-        $output_array = [];
+        $outputArray = [];
         preg_match(
             "/(CREATE TABLE IF NOT EXISTS|CREATE TABLE)[\s|`|']+([0-9a-zA-Z-_]+)[\s|`|'|\(](.*)/i",
             $this->query,
-            $output_array
+            $outputArray
         );
-        if (empty($output_array)) {
-            throw new InvalidQueryException($query, 'Invalid Table.');
+        if (empty($outputArray)) {
+            throw new InvalidQueryException($this->query, 'Invalid Table.');
         }
-        $this->table = $output_array[2];
-        $this->rawStatements = $output_array[3];
+        $this->table = $outputArray[2];
+        $this->rawStatements = $outputArray[3];
     }
 
     protected function defineStatements()

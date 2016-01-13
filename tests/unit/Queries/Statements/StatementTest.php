@@ -1,13 +1,13 @@
 <?php
 
-namespace Highideas\SqlToMigration\Test\Queries\Constraints;
+namespace Highideas\SqlToMigration\Test\Queries\Statements;
 
 use \PHPUnit_Framework_TestCase;
 
-use Highideas\SqlToMigration\Queries\Constraints\Statement;
-use Highideas\SqlToMigration\Queries\Constraints\PrimaryKey;
-use Highideas\SqlToMigration\Queries\Columns\IntegerColumn;
-use Highideas\SqlToMigration\Queries\Columns\VarcharColumn;
+use Highideas\SqlToMigration\Queries\Statements\Statement;
+use Highideas\SqlToMigration\Queries\Statements\Constraints\PrimaryKey;
+use Highideas\SqlToMigration\Queries\Statements\Columns\IntegerColumn;
+use Highideas\SqlToMigration\Queries\Statements\Columns\VarcharColumn;
 
 class StatementTest extends PHPUnit_Framework_TestCase
 {
@@ -15,7 +15,7 @@ class StatementTest extends PHPUnit_Framework_TestCase
     {
         $statement = new Statement();
         $this->assertInstanceOf(
-            '\Highideas\SqlToMigration\Queries\Constraints\PrimaryKey',
+            '\Highideas\SqlToMigration\Queries\Statements\Constraints\PrimaryKey',
             $statement->getPrimaryKeyInstance()
         );
     }
@@ -50,7 +50,7 @@ class StatementTest extends PHPUnit_Framework_TestCase
     public function testLoadStatementShouldUpdatePrimaryKeyInstance()
     {
         $statement = new Statement();
-        $statement->loadStatement('PRIMARY KEY  (`RoleID`,`PermissionID`)');
+        $statement->run(['PRIMARY KEY  (`RoleID`,`PermissionID`)']);
         $expected = ['RoleID' => 'RoleID','PermissionID' => 'PermissionID',];
         $this->assertEquals($expected, $statement->getPrimaryKeyInstance()->getColumns());
     }
