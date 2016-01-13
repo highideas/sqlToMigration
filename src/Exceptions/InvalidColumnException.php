@@ -2,7 +2,7 @@
 
 namespace Highideas\SqlToMigration\Exceptions;
 
-use InvalidArgumentException;
+use \InvalidArgumentException;
 
 class InvalidColumnException extends InvalidArgumentException
 {

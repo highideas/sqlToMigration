@@ -45,6 +45,9 @@ class Statement
         $this->getCollectionInstance()->add($column->getName(), $column);
     }
 
+    /**
+     * @return Collection Collection Instance
+     */
     public function getCollectionInstance()
     {
         if (!$this->columns instanceof Collection) {
@@ -53,6 +56,9 @@ class Statement
         return $this->columns;
     }
 
+    /**
+     * @return PrimaryKey PrimaryKey Instance
+     */
     public function getPrimaryKeyInstance()
     {
         if (!$this->primaryKeyInstance instanceof PrimaryKey) {
