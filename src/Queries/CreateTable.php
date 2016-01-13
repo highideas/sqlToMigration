@@ -32,7 +32,7 @@ class CreateTable implements QueryInterface
             $outputArray
         );
         if (empty($outputArray)) {
-            throw new InvalidQueryException($query, 'Invalid Table.');
+            throw new InvalidQueryException($this->query, 'Invalid Table.');
         }
         $this->table = $outputArray[2];
         $this->rawStatements = $outputArray[3];

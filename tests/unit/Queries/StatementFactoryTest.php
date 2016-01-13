@@ -30,19 +30,17 @@ class StatementFactoryTest extends PHPUnit_Framework_TestCase
 
     public function testInstantiateShouldReturnStatementInstanceWhenValidQueryPassed()
     {
-        $statements = StatementFactory::instantiate($this->validQuery());
         $this->assertInstanceOf(
             '\Highideas\SqlToMigration\Queries\Statements\Statement',
-            $statements
+            StatementFactory::instantiate($this->validQuery())
         );
     }
 
     public function testInstantiateShouldReturnStatementInstanceWhenInvalidQueryPassed()
     {
-        $statements = StatementFactory::instantiate($this->invalidQuery());
         $this->assertInstanceOf(
             '\Highideas\SqlToMigration\Queries\Statements\Statement',
-            $statements
+            StatementFactory::instantiate($this->invalidQuery())
         );
     }
 
@@ -52,6 +50,6 @@ class StatementFactoryTest extends PHPUnit_Framework_TestCase
      */
     public function testInstantiateShouldGenerateInvalidQueryExceptionWhenEmptyStringInformed()
     {
-        $statements = StatementFactory::instantiate('');
+        StatementFactory::instantiate('');
     }
 }
