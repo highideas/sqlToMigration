@@ -12,13 +12,13 @@ class ColumnFactory
 
     public static function instantiate($column)
     {
-        preg_match("/^[`]*[a-zA-Z-_]+[`]*\s+(\w*)/i", $column, $output_array);
+        preg_match("/^[`]*[a-zA-Z-_]+[`]*\s+(\w*)/i", $column, $outputArray);
 
-        if (!isset($output_array[1]) || empty($output_array[1])) {
+        if (!isset($outputArray[1]) || empty($outputArray[1])) {
             throw new InvalidColumnException($column, 'Column Not Found.');
         }
 
-        $columnType = trim(strtolower($output_array[1]));
+        $columnType = trim(strtolower($outputArray[1]));
 
         if (in_array($columnType, self::$characters)) {
             return new VarcharColumn($column);
