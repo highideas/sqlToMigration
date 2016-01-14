@@ -2,8 +2,10 @@
     "name": "highideas/sql-to-migration",
     "description": "sql2Migration",
     "keywords": [
-        "league",
-        ":package_name"
+        "highideas",
+        "sqlToMigration",
+        "sql-to-migration",
+        "sql2Migration"
     ],
     "homepage": "https://github.com/thephphighideas/sqlToMigration",
     "license": "MIT",
