@@ -17,10 +17,15 @@ matrix:
     - php: hhvm
 
 # execute any number of scripts before the test run, custom env's are available as variables
-before_script: 
-    - composer install
+before_script:
+    - travis_retry composer self-update
+    - travis_retry composer install --no-interaction --prefer-source
     - cd tests
 
 # omitting "script:" will default to phpunit
 # use the $DB env variable to determine the phpunit.xml to use
-script: sh run
+script: sh run-travis
+
+after_script:
+    - wget https://scrutinizer-ci.com/ocular.phar
+    - php ocular.phar code-coverage:upload --format=php-clover coverage.clover
