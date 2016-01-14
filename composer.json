@@ -1,6 +1,6 @@
 {
-    "name": "highideas/sqlToMigration",
-    "description": ":package_description",
+    "name": "highideas/sql-to-migration",
+    "description": "sql2Migration",
     "keywords": [
         "league",
         ":package_name"
