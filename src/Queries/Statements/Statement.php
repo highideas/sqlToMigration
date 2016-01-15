@@ -4,11 +4,10 @@ namespace Highideas\SqlToMigration\Queries\Statements;
 
 use Highideas\SqlToMigration\Exceptions\InvalidColumnException;
 
+use Highideas\SqlToMigration\Collections\Collection;
 use Highideas\SqlToMigration\Queries\Statements\Columns\ColumnFactory;
-use Highideas\SqlToMigration\Queries\Statements\Columns\ColumnInterface;
 use Highideas\SqlToMigration\Queries\Statements\Constraints\PrimaryKey;
 use Highideas\SqlToMigration\Queries\Validators\IntegrityValidator;
-use Highideas\SqlToMigration\Collections\Collection;
 
 class Statement
 {

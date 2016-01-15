@@ -2,8 +2,6 @@
 
 namespace Highideas\SqlToMigration\Queries\Validators;
 
-use Highideas\SqlToMigration\Queries\Statements\Constraints\ConstraintInterface;
-use Highideas\SqlToMigration\Collections\Collection;
 use Highideas\SqlToMigration\Queries\Statements\Statement;
 
 /**

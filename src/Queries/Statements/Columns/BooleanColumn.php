@@ -2,8 +2,6 @@
 
 namespace Highideas\SqlToMigration\Queries\Statements\Columns;
 
-use Highideas\SqlToMigration\Exceptions\InvalidColumnException;
-
 class BooleanColumn extends Column
 {
 
