@@ -6,6 +6,7 @@
 [![Code Coverage](https://scrutinizer-ci.com/g/highideas/sqlToMigration/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/highideas/sqlToMigration/?branch=master)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/highideas/sqlToMigration/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/highideas/sqlToMigration/?branch=master)
 [![Total Downloads][ico-downloads]][link-downloads]
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/5e7f7b5c-bb5b-48b7-8587-60402e72f7c9/big.png)](https://insight.sensiolabs.com/projects/5e7f7b5c-bb5b-48b7-8587-60402e72f7c9)
 
 This package serve to convert SQL files to objects used afterwards to generate 
 migrations on your favorite framework.
