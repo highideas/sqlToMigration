@@ -8,6 +8,9 @@ use Highideas\SqlToMigration\Exceptions\InvalidQueryException;
 
 class QueryFactory
 {
+    /**
+     * @param string $query
+     */
     public static function instantiate($query)
     {
 
