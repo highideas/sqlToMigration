@@ -3,8 +3,8 @@
 [![Latest Version on Packagist][ico-version]][link-packagist]
 [![Software License][ico-license]](LICENSE.md)
 [![Build Status](https://travis-ci.org/highideas/sqlToMigration.svg?branch=master)](https://travis-ci.org/highideas/sqlToMigration)
-[![Coverage Status][ico-scrutinizer]][link-scrutinizer]
-[![Quality Score][ico-code-quality]][link-code-quality]
+[![Code Coverage](https://scrutinizer-ci.com/g/highideas/sqlToMigration/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/highideas/sqlToMigration/?branch=master)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/highideas/sqlToMigration/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/highideas/sqlToMigration/?branch=master)
 [![Total Downloads][ico-downloads]][link-downloads]
 
 This package serve to convert SQL files to objects used afterwards to generate 
