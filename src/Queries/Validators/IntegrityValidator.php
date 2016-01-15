@@ -7,14 +7,13 @@ use Highideas\SqlToMigration\Collections\Collection;
 use Highideas\SqlToMigration\Queries\Statements\Statement;
 
 /**
- * @property ConstraintInterface $constraint
- * @property Collection $columns
+ * @property Statement $statement
+ * @property Array $errors
  */
 class IntegrityValidator implements ValidatorInterface
 {
 
     private $statement;
-    private $columns;
     private $errors;
 
     public function __construct(Statement $statement)
