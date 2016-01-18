@@ -4,11 +4,10 @@ namespace Highideas\SqlToMigration\Queries\Statements;
 
 use Highideas\SqlToMigration\Exceptions\InvalidColumnException;
 
+use Highideas\SqlToMigration\Collections\Collection;
 use Highideas\SqlToMigration\Queries\Statements\Columns\ColumnFactory;
-use Highideas\SqlToMigration\Queries\Statements\Columns\ColumnInterface;
 use Highideas\SqlToMigration\Queries\Statements\Constraints\PrimaryKey;
 use Highideas\SqlToMigration\Queries\Validators\IntegrityValidator;
-use Highideas\SqlToMigration\Collections\Collection;
 
 class Statement
 {
@@ -45,6 +44,9 @@ class Statement
         $this->getCollectionInstance()->add($column->getName(), $column);
     }
 
+    /**
+     * @return Collection Collection Instance
+     */
     public function getCollectionInstance()
     {
         if (!$this->columns instanceof Collection) {
@@ -53,6 +55,9 @@ class Statement
         return $this->columns;
     }
 
+    /**
+     * @return PrimaryKey PrimaryKey Instance
+     */
     public function getPrimaryKeyInstance()
     {
         if (!$this->primaryKeyInstance instanceof PrimaryKey) {

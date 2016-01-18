@@ -16,6 +16,17 @@ matrix:
     - php: 7.0
     - php: hhvm
 
+# execute any number of scripts before the test run, custom env's are available as variables
+before_script:
+    - travis_retry composer self-update
+    - travis_retry composer install --no-interaction --prefer-source
+    - cd tests
+
 # omitting "script:" will default to phpunit
 # use the $DB env variable to determine the phpunit.xml to use
-script: ../vendor/bin/phpunit unit/
+script: sh run-travis
+
+after_script:
+  - if [ "$TRAVIS_PHP_VERSION" != "7.0" ] && [ "$TRAVIS_PHP_VERSION" != "hhvm" ]; then cd ../; fi
+  - if [ "$TRAVIS_PHP_VERSION" != "7.0" ] && [ "$TRAVIS_PHP_VERSION" != "hhvm" ]; then wget https://scrutinizer-ci.com/ocular.phar; fi
+  - if [ "$TRAVIS_PHP_VERSION" != "7.0" ] && [ "$TRAVIS_PHP_VERSION" != "hhvm" ]; then php ocular.phar code-coverage:upload --format=php-clover tests/coverage.clover; fi
