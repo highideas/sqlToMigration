@@ -3,9 +3,6 @@
 namespace Highideas\SqlToMigration\Queries\Statements\Columns;
 
 use Highideas\SqlToMigration\Exceptions\InvalidColumnException;
-use Highideas\SqlToMigration\Queries\Statements\Constraints\NotNull;
-use Highideas\SqlToMigration\Queries\Statements\Constraints\DefaultValue;
-use Highideas\SqlToMigration\Queries\Statements\Constraints\AutoIncrement;
 
 abstract class Column implements ColumnInterface
 {

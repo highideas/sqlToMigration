@@ -1,9 +1,11 @@
 {
-    "name": "highideas/sqlToMigration",
-    "description": ":package_description",
+    "name": "highideas/sql-to-migration",
+    "description": "sql2Migration",
     "keywords": [
-        "league",
-        ":package_name"
+        "highideas",
+        "sqlToMigration",
+        "sql-to-migration",
+        "sql2Migration"
     ],
     "homepage": "https://github.com/thephphighideas/sqlToMigration",
     "license": "MIT",
@@ -18,6 +20,11 @@
             "name": "Gustavo Weinschütz",
             "email": "gpweins@gmail.com",
             "homepage": "http://www.weinschutz.com.br/",
+            "role": "Developer"
+        },
+        {
+            "name": "Luiz Henrique",
+            "email": "lhmatias@gmail.com",
             "role": "Developer"
         }
     ],

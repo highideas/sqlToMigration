@@ -2,7 +2,7 @@
 
 namespace Highideas\SqlToMigration\Exceptions;
 
-use InvalidArgumentException;
+use \InvalidArgumentException;
 
 class InvalidColumnException extends InvalidArgumentException
 {
@@ -12,7 +12,6 @@ class InvalidColumnException extends InvalidArgumentException
      * New Instance
      *
      * @param string $name    validator name
-     * @param array  $data    invalid  data
      * @param string $message exception message
      */
     public function __construct($name, $message = '')

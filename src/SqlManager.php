@@ -2,6 +2,8 @@
 
 namespace Highideas\SqlToMigration;
 
+use Highideas\SqlToMigration\Queries\QueryFactory;
+
 class SqlManager
 {
     protected $rawQuery;
