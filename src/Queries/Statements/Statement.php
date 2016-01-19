@@ -55,9 +55,6 @@ class Statement
      */
     public function getCollection()
     {
-        if (!$this->columns instanceof Collection) {
-            $this->columns = new Collection();
-        }
         return $this->columns;
     }
 
