@@ -1,10 +1,10 @@
 <?php
 
-namespace Highideas\SqlToMigration\Test\Queries;
+namespace Highideas\SqlToMigration\Test\Queries\Statements;
 
 use \PHPUnit_Framework_TestCase;
 
-use Highideas\SqlToMigration\Queries\StatementFactory;
+use Highideas\SqlToMigration\Queries\Statements\StatementFactory;
 
 class StatementFactoryTest extends PHPUnit_Framework_TestCase
 {

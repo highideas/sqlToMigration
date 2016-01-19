@@ -21,8 +21,8 @@ class IntegrityValidator implements ValidatorInterface
 
     public function constraintsIsInColumns()
     {
-        foreach ($this->statement->getPrimaryKeyInstance()->getColumns() as $constraint) {
-            if (!$this->statement->getCollectionInstance()->exist($constraint)) {
+        foreach ($this->statement->getPrimaryKey()->getColumns() as $constraint) {
+            if (!$this->statement->getCollection()->exist($constraint)) {
                 $this->addError($constraint, 'Constraint do not exist in columns list');
             }
         }
@@ -31,11 +31,11 @@ class IntegrityValidator implements ValidatorInterface
 
     public function columnsQuantityExpected()
     {
-        if ($this->statement->getCollectionInstance()->count() != $this->statement->getColumnsQuantity()) {
+        if ($this->statement->getCollection()->count() != $this->statement->getColumnsQuantity()) {
             $this->addError(
                 'invalidColumnsQuantityExpected',
                 'Columns Quantity Expected: ' . $this->statement->getColumnsQuantity() .
-                ' Columns Quantity Found: ' . $this->statement->getCollectionInstance()->count()
+                ' Columns Quantity Found: ' . $this->statement->getCollection()->count()
             );
         }
         return;
