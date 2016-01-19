@@ -5,8 +5,9 @@ namespace Highideas\SqlToMigration\Test\Queries\Validators;
 use \PHPUnit_Framework_TestCase;
 
 use Highideas\SqlToMigration\Collections\Collection;
-use Highideas\SqlToMigration\Queries\Validators\IntegrityValidator;
 use Highideas\SqlToMigration\Queries\Statements\Statement;
+use Highideas\SqlToMigration\Queries\Validators\IntegrityValidator;
+use Highideas\SqlToMigration\Queries\Statements\Constraints\PrimaryKey;
 
 class IntegrityValidatorTest extends PHPUnit_Framework_TestCase
 {
@@ -16,14 +17,14 @@ class IntegrityValidatorTest extends PHPUnit_Framework_TestCase
 
     protected function createValidStatement()
     {
-        $statement = new Statement();
+        $statement = new Statement(new Collection(), new PrimaryKey());
         $statement->run(['`ID` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,']);
         return $statement;
     }
 
     protected function createInvalidStatement()
     {
-        $statement = new Statement();
+        $statement = new Statement(new Collection(), new PrimaryKey());
         $statement->run(
             [
                 'invalid column,',

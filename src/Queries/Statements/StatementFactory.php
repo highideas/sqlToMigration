@@ -1,9 +1,11 @@
 <?php
 
-namespace Highideas\SqlToMigration\Queries;
+namespace Highideas\SqlToMigration\Queries\Statements;
 
+use Highideas\SqlToMigration\Collections\Collection;
 use Highideas\SqlToMigration\Exceptions\InvalidQueryException;
 use Highideas\SqlToMigration\Queries\Statements\Statement;
+use Highideas\SqlToMigration\Queries\Statements\Constraints\PrimaryKey;
 
 class StatementFactory
 {
@@ -21,7 +23,7 @@ class StatementFactory
             throw new InvalidQueryException($query, 'Invalid Query.');
         }
         $statements = $outputArray[1];
-        $statement = new Statement();
+        $statement = new Statement(new Collection(), new PrimaryKey());
 
         return $statement->run($statements);
     }

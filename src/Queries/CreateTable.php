@@ -3,6 +3,7 @@
 namespace Highideas\SqlToMigration\Queries;
 
 use Highideas\SqlToMigration\Exceptions\InvalidQueryException;
+use Highideas\SqlToMigration\Queries\Statements\StatementFactory;
 
 class CreateTable implements QueryInterface
 {
@@ -50,7 +51,12 @@ class CreateTable implements QueryInterface
 
     public function getColumns()
     {
-        return $this->columns;
+        return $this->statements->getCollection();
+    }
+
+    public function getStatement()
+    {
+        return $this->statements;
     }
 
     public function getQuery()

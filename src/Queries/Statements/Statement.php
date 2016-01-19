@@ -11,9 +11,15 @@ use Highideas\SqlToMigration\Queries\Validators\IntegrityValidator;
 
 class Statement
 {
-    protected $primaryKeyInstance;
+    protected $primaryKey;
     protected $columns;
     protected $columnsQuantity = 0;
+
+    public function __construct(Collection $columns, PrimaryKey $primaryKey)
+    {
+        $this->primaryKey = $primaryKey;
+        $this->columns = $columns;
+    }
 
     public function run(Array $statements)
     {
@@ -37,33 +43,27 @@ class Statement
         }
 
         if (strpos(trim(strtolower($statement)), 'primary key') !== false) {
-            $this->getPrimaryKeyInstance()->checkColumn($statement);
+            $this->getPrimaryKey()->checkColumn($statement);
         }
 
         $column = ColumnFactory::instantiate($statement);
-        $this->getCollectionInstance()->add($column->getName(), $column);
+        $this->getCollection()->add($column->getName(), $column);
     }
 
     /**
      * @return Collection Collection Instance
      */
-    public function getCollectionInstance()
+    public function getCollection()
     {
-        if (!$this->columns instanceof Collection) {
-            $this->columns = new Collection();
-        }
         return $this->columns;
     }
 
     /**
      * @return PrimaryKey PrimaryKey Instance
      */
-    public function getPrimaryKeyInstance()
+    public function getPrimaryKey()
     {
-        if (!$this->primaryKeyInstance instanceof PrimaryKey) {
-            $this->primaryKeyInstance = new PrimaryKey();
-        }
-        return $this->primaryKeyInstance;
+        return $this->primaryKey;
     }
 
     public function getColumnsQuantity()
