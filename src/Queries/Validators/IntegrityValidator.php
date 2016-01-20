@@ -14,7 +14,7 @@ class IntegrityValidator implements ValidatorInterface
     private $statement;
     private $errors;
 
-    public function __construct(Statement $statement)
+    public function setStatement(Statement $statement)
     {
         $this->statement = $statement;
     }

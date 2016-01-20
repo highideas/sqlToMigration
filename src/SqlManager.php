@@ -20,7 +20,7 @@ class SqlManager
         $preFormatedRawQuery = trim(strtolower($this->rawQuery));
 
         if (strpos($preFormatedRawQuery, 'create table') !== false) {
-            $this->query = QueryFactory::instantiate('create');
+            $this->query = QueryFactory::instantiate('create', $this->rawQuery);
             return true;
         }
     }

@@ -6,6 +6,7 @@ use Highideas\SqlToMigration\Collections\Collection;
 use Highideas\SqlToMigration\Exceptions\InvalidQueryException;
 use Highideas\SqlToMigration\Queries\Statements\Statement;
 use Highideas\SqlToMigration\Queries\Statements\Constraints\PrimaryKey;
+use Highideas\SqlToMigration\Queries\Validators\IntegrityValidator;
 
 class StatementFactory
 {
@@ -13,7 +14,7 @@ class StatementFactory
     public static function instantiate($query)
     {
         $outputArray = [];
-        $query = rtrim(ltrim(str_replace(';', '', $query), '('), ')');
+        $query = trim(rtrim(ltrim(str_replace(';', '', $query), '('), ')'));
         preg_match_all(
             "/\s*([^\(|^\,][^\,]+\S+[^\,|\s])/i",
             $query,
@@ -23,7 +24,7 @@ class StatementFactory
             throw new InvalidQueryException($query, 'Invalid Query.');
         }
         $statements = $outputArray[1];
-        $statement = new Statement(new Collection(), new PrimaryKey());
+        $statement = new Statement(new Collection, new PrimaryKey, new IntegrityValidator);
 
         return $statement->run($statements);
     }
