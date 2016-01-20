@@ -2,8 +2,8 @@
 
 namespace Highideas\SqlToMigration\Queries;
 
-use Highideas\SqlToMigration\Queries\CreateTable;
 use Highideas\SqlToMigration\Exceptions\InvalidQueryException;
+use Highideas\SqlToMigration\Queries\CreateTable;
 
 class QueryFactory
 {
