@@ -7,18 +7,20 @@ use Highideas\SqlToMigration\Exceptions\InvalidColumnException;
 use Highideas\SqlToMigration\Collections\Collection;
 use Highideas\SqlToMigration\Queries\Statements\Columns\ColumnFactory;
 use Highideas\SqlToMigration\Queries\Statements\Constraints\PrimaryKey;
-use Highideas\SqlToMigration\Queries\Validators\IntegrityValidator;
+use Highideas\SqlToMigration\Queries\Validators\ValidatorInterface;
 
 class Statement
 {
     protected $primaryKey;
     protected $columns;
     protected $columnsQuantity = 0;
+    protected $validator;
 
-    public function __construct(Collection $columns, PrimaryKey $primaryKey)
+    public function __construct(Collection $columns, PrimaryKey $primaryKey, ValidatorInterface $validator)
     {
         $this->primaryKey = $primaryKey;
         $this->columns = $columns;
+        $this->validator = $validator;
     }
 
     public function run(Array $statements)
@@ -73,7 +75,7 @@ class Statement
 
     public function isValid()
     {
-        $validator = new IntegrityValidator($this);
-        return $validator->validate();
+        $this->validator->setStatement($this);
+        return $this->validator->validate();
     }
 }

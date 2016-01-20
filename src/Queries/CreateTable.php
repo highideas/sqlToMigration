@@ -49,11 +49,17 @@ class CreateTable implements QueryInterface
         return $this->table;
     }
 
+    /**
+     * @return \Highideas\SqlToMigration\Collections\Collection Collection Instance
+     */
     public function getColumns()
     {
         return $this->statements->getCollection();
     }
 
+    /**
+     * @return \Highideas\SqlToMigration\Queries\Statements\Statement Statement Instance
+     */
     public function getStatement()
     {
         return $this->statements;

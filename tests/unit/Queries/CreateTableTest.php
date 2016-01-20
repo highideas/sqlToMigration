@@ -55,6 +55,7 @@ class CreateTableTest extends PHPUnit_Framework_TestCase
         $query = $this->validQuery();
         $table = new CreateTable($query);
         $this->assertEquals('PREFIX_roles', $table->getTable());
+        $this->assertTrue($table->getStatement()->isValid());
     }
 
     public function testGetColumsShouldReturnCollectionInstance()
@@ -65,6 +66,7 @@ class CreateTableTest extends PHPUnit_Framework_TestCase
             '\Highideas\SqlToMigration\Collections\Collection',
             $table->getColumns()
         );
+        $this->assertTrue($table->getStatement()->isValid());
     }
 
     public function testGetStatementShouldReturnStatementInstance()
@@ -75,6 +77,7 @@ class CreateTableTest extends PHPUnit_Framework_TestCase
             '\Highideas\SqlToMigration\Queries\Statements\Statement',
             $table->getStatement()
         );
+        $this->assertTrue($table->getStatement()->isValid());
     }
 
     public function testGetQueryShouldReturnRawQuery()
@@ -85,5 +88,6 @@ class CreateTableTest extends PHPUnit_Framework_TestCase
             $query,
             $table->getQuery()
         );
+        $this->assertTrue($table->getStatement()->isValid());
     }
 }

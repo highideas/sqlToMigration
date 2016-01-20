@@ -9,12 +9,13 @@ use Highideas\SqlToMigration\Queries\Statements\Statement;
 use Highideas\SqlToMigration\Queries\Statements\Constraints\PrimaryKey;
 use Highideas\SqlToMigration\Queries\Statements\Columns\IntegerColumn;
 use Highideas\SqlToMigration\Queries\Statements\Columns\VarcharColumn;
+use Highideas\SqlToMigration\Queries\Validators\IntegrityValidator;
 
 class StatementTest extends PHPUnit_Framework_TestCase
 {
     public function testGetPrimaryKeyInstanceShouldReturnPrimaryKeyInstance()
     {
-        $statement = new Statement(new Collection(), new PrimaryKey());
+        $statement = new Statement(new Collection, new PrimaryKey, new IntegrityValidator);
         $this->assertInstanceOf(
             '\Highideas\SqlToMigration\Queries\Statements\Constraints\PrimaryKey',
             $statement->getPrimaryKey()
@@ -23,7 +24,7 @@ class StatementTest extends PHPUnit_Framework_TestCase
 
     public function testLoadStatementShouldReturnInvalidColumnExceptionWhenInvalidParamPassed()
     {
-        $statement = new Statement(new Collection(), new PrimaryKey());
+        $statement = new Statement(new Collection, new PrimaryKey, new IntegrityValidator);
         try {
             $statement->loadStatement('Invalid column query');
         } catch (\Highideas\SqlToMigration\Exceptions\InvalidColumnException $expected) {
@@ -40,7 +41,7 @@ class StatementTest extends PHPUnit_Framework_TestCase
         $int = new IntegerColumn('`Lft` INTEGER NOT NULL,');
         $char = new VarcharColumn('`Title` char(64) NOT NULL,');
 
-        $statement = new Statement(new Collection(), new PrimaryKey());
+        $statement = new Statement(new Collection, new PrimaryKey, new IntegrityValidator);
         $statement->loadStatement('`Lft` INTEGER NOT NULL,');
         $statement->loadStatement('`Title` char(64) NOT NULL,');
 
@@ -50,7 +51,7 @@ class StatementTest extends PHPUnit_Framework_TestCase
 
     public function testLoadStatementShouldUpdatePrimaryKeyInstance()
     {
-        $statement = new Statement(new Collection(), new PrimaryKey());
+        $statement = new Statement(new Collection, new PrimaryKey, new IntegrityValidator);
         $statement->run(['PRIMARY KEY  (`RoleID`,`PermissionID`)']);
         $expected = ['RoleID' => 'RoleID','PermissionID' => 'PermissionID',];
         $this->assertEquals($expected, $statement->getPrimaryKey()->getColumns());
@@ -66,7 +67,7 @@ class StatementTest extends PHPUnit_Framework_TestCase
             '`Title` char(64) NOT NULL,'
         ];
 
-        $statement = new Statement(new Collection(), new PrimaryKey());
+        $statement = new Statement(new Collection, new PrimaryKey, new IntegrityValidator);
         $statement->run($statements);
 
         $this->assertEquals($int, $statement->getCollection()->get('Lft'));
@@ -80,7 +81,7 @@ class StatementTest extends PHPUnit_Framework_TestCase
             'invalid column,'
         ];
 
-        $statement = new Statement(new Collection(), new PrimaryKey());
+        $statement = new Statement(new Collection, new PrimaryKey, new IntegrityValidator);
         $statement->run($statements);
         $this->assertFalse($statement->isValid());
     }

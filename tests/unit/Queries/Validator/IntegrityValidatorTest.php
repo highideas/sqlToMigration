@@ -11,20 +11,16 @@ use Highideas\SqlToMigration\Queries\Statements\Constraints\PrimaryKey;
 
 class IntegrityValidatorTest extends PHPUnit_Framework_TestCase
 {
-
-    protected $validStatement = '`ID` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,';
-    protected $invalidStatement = 'invalid column';
-
     protected function createValidStatement()
     {
-        $statement = new Statement(new Collection(), new PrimaryKey());
+        $statement = new Statement(new Collection, new PrimaryKey, new IntegrityValidator);
         $statement->run(['`ID` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,']);
         return $statement;
     }
 
     protected function createInvalidStatement()
     {
-        $statement = new Statement(new Collection(), new PrimaryKey());
+        $statement = new Statement(new Collection, new PrimaryKey, new IntegrityValidator);
         $statement->run(
             [
                 'invalid column,',
@@ -37,23 +33,26 @@ class IntegrityValidatorTest extends PHPUnit_Framework_TestCase
 
     public function testValidateShouldReturnTrueIfErrorsNotFound()
     {
-        $validStatement = $this->createValidStatement();
-        $validator = new IntegrityValidator($validStatement);
+        $statement = $this->createValidStatement();
+        $validator = new IntegrityValidator();
+        $validator->setStatement($statement);
         $result = $validator->validate();
         $this->assertTrue($result);
     }
 
     public function testValidateShouldReturnFalseIfErrorsFound()
     {
-        $invalidStatement = $this->createInvalidStatement();
-        $validator = new IntegrityValidator($invalidStatement);
+        $statement = $this->createInvalidStatement();
+        $validator = new IntegrityValidator();
+        $validator->setStatement($statement);
         $this->assertFalse($validator->validate());
     }
 
     public function testGetErrorsShouldReturnListOfErrors()
     {
-        $invalidStatement = $this->createInvalidStatement();
-        $validator = new IntegrityValidator($invalidStatement);
+        $statement = $this->createInvalidStatement();
+        $validator = new IntegrityValidator();
+        $validator->setStatement($statement);
         $this->assertFalse($validator->validate());
         $expected = [
             'ID' => [
