@@ -59,7 +59,7 @@ class IntegrityValidatorTest extends PHPUnit_Framework_TestCase
                 'Constraint do not exist in columns list',
             ],
             'invalidColumnsQuantityExpected' => [
-                'Columns Quantity Expected: 3 Columns Quantity Found: 1',
+                'Columns Quantity Expected: 2 Columns Quantity Found: 1',
             ],
         ];
         $result = $validator->getErrors();

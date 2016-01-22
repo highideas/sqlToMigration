@@ -46,10 +46,24 @@ class SqlManagerTest extends PHPUnit_Framework_TestCase
     {
         $rawQuery = $this->validQueries();
         $sql = new SqlManager($rawQuery, new Collection);
-        //$sql->run();
-        //$this->assertInstanceOf(
-        //    '\Highideas\SqlToMigration\Collections\Collection',
-        //    $sql->getQueries()
-        //);
+        $sql->run();
+        $this->assertInstanceOf(
+            '\Highideas\SqlToMigration\Collections\Collection',
+            $sql->getQueries()
+        );
+    }
+
+    public function testGetQueriesShouldReturnTablesWithValidStatement()
+    {
+        $rawQuery = $this->validQueries();
+        $sql = new SqlManager($rawQuery, new Collection);
+        $sql->run();
+        foreach ($sql->getQueries()->getAll() as $table) {
+            $this->assertTrue(
+                $table->getStatement()->isValid(),
+                'Table: ' .$table->getTable(). "\n" . 'Errors: ' .
+                print_r($table->getStatement()->getValidator()->getErrors(), true)
+            );
+        }
     }
 }
