@@ -39,7 +39,7 @@ class Statement
     {
         preg_match("/^[`]*[a-zA-Z-_]*[`]*\s*(CHAR|VARCHAR|TEXT|INTEGER|PRIMARY\sKEY)/i", $statement, $outputArray);
 
-        $this->columnsQuantity++;
+        $this->countColumn($statement);
         if (!isset($outputArray[1]) || empty($outputArray[1])) {
             throw new InvalidColumnException($statement, 'Statement Not Found.');
         }
@@ -50,6 +50,16 @@ class Statement
 
         $column = ColumnFactory::instantiate($statement);
         $this->getCollection()->add($column->getName(), $column);
+    }
+
+    protected function countColumn($statement)
+    {
+        $isPrimaryKey = (strpos(trim(strtolower($statement)), 'primary key') !== false);
+        $isJustConstraint = (strpos(trim(strtolower($statement)), '(') !== false);
+        if ($isPrimaryKey && $isJustConstraint) {
+            return;
+        }
+        $this->columnsQuantity++;
     }
 
     /**
@@ -77,5 +87,10 @@ class Statement
     {
         $this->validator->setStatement($this);
         return $this->validator->validate();
+    }
+
+    public function getValidator()
+    {
+        return $this->validator;
     }
 }
