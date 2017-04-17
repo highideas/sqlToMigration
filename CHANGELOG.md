@@ -1,20 +1,18 @@
 # Changelog
 
-All Notable changes to `:package_name` will be documented in this file
 
-## NEXT - YYYY-MM-DD
+All Notable changes to this project will be documented in this file
+we use the follow tags to organize our release:
 
 ### Added
-- Nothing
-
 ### Deprecated
-- Nothing
-
 ### Fixed
-- Nothing
-
 ### Removed
-- Nothing
-
 ### Security
-- Nothing
+
+
+RELEASES ============================================================================
+
+## [Unreleased]
+### Added
+- CREATE TABLE reader from @marco
